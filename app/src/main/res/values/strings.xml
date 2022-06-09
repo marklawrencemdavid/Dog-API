@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Mini Dog</string>
+    <string name="fragment_home_title">Home</string>
+    <string name="fragment_saves_title">Saves</string>
+    <string name="fragment_profile_title">Profile</string>
+</resources>
