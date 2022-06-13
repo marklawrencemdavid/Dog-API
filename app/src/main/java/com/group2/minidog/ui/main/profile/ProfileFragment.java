@@ -1,4 +1,4 @@
-package com.group2.minidog.ui.profile;
+package com.group2.minidog.ui.main.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,17 +8,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.group2.minidog.databinding.FragmentNotificationsBinding;
+import com.group2.minidog.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentProfileBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

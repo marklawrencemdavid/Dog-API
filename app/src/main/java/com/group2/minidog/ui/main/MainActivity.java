@@ -1,4 +1,4 @@
-package com.group2.minidog;
+package com.group2.minidog.ui.main;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.group2.minidog.R;
 import com.group2.minidog.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

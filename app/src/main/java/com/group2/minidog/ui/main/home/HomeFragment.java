@@ -1,4 +1,4 @@
-package com.group2.minidog.ui.saves;
+package com.group2.minidog.ui.main.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.group2.minidog.databinding.FragmentDashboardBinding;
+import com.group2.minidog.databinding.FragmentHomeBinding;
 
-public class SavesFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        textView.setText("This is saves fragment");
+        final TextView textView = binding.textHome;
+        textView.setText("This is home fragment");
         return root;
     }
 
