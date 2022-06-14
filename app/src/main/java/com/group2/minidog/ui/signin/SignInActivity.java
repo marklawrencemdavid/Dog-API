@@ -1,11 +1,10 @@
 package com.group2.minidog.ui.signin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.group2.minidog.databinding.ActivitySignInBinding;
-import com.group2.minidog.databinding.ActivitySplashScreenBinding;
 
 public class SignInActivity extends AppCompatActivity {
 
