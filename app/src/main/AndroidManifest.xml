@@ -27,10 +27,12 @@
         </activity>
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.SignInSignup" />
         <activity
             android:name=".ui.signin.SignInActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.SignInSignup" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />

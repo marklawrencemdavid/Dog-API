@@ -22,4 +22,21 @@
         <item name="android:navigationBarColor">@color/orange_lighter</item>
         <item name="backgroundColor">@color/darker</item>
     </style>
+
+    <!-- SignIn and SignUp Theme -->
+    <style name="Theme.SignInSignup" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/darker</item>
+        <item name="colorPrimaryVariant">@color/darker</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/darker</item>
+        <item name="colorSecondaryVariant">@color/darker</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/darker</item>
+        <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/darker</item>
+        <item name="android:windowBackground">@drawable/signinup_background</item>
+    </style>
 </resources>
