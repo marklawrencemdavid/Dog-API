@@ -1,6 +1,8 @@
 package com.group2.minidog.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.group2.minidog.R;
 import com.group2.minidog.databinding.ActivityMainBinding;
+import com.group2.minidog.ui.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
