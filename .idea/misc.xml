@@ -7,9 +7,11 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_app_logo.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_launcher_background.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.132" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_signinup_background.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_splash_background.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_splash_foreground.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/ic_splash_splashscreen.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/signinup_background.xml" value="0.2" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/splash_background.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/splash_foreground.xml" value="0.132" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/drawable/splash_splashscreen.xml" value="0.132" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/layout/fragment_saves.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/MiniDog/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.132" />
+<<<<<<< HEAD
         <entry key="..\:/Users/Pilimon/Documents/group-2-mini-project/app/src/main/res/drawable/app_logo.xml" value="0.2735" />
         <entry key="..\:/Users/Pilimon/Documents/group-2-mini-project/app/src/main/res/drawable/ic_logs.xml" value="0.2735" />
         <entry key="..\:/Users/Pilimon/Documents/group-2-mini-project/app/src/main/res/drawable/ic_orig.xml" value="0.2735" />
@@ -43,6 +46,12 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+=======
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+>>>>>>> 0a840d735fab7b568810e38af7f1ac10d85bef24
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -34,9 +34,9 @@
         <item name="colorSecondaryVariant">@color/darker</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/darker</item>
+        <item name="android:statusBarColor" >@color/orange</item>
         <!-- Customize your theme here. -->
-        <item name="android:navigationBarColor">@color/darker</item>
+        <item name="android:navigationBarColor">@color/orange</item>
         <item name="android:windowBackground">@drawable/signinup_background</item>
     </style>
 </resources>

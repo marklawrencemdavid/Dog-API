@@ -37,15 +37,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+<<<<<<< HEAD
 
 
 
         binding.btnsin.setOnClickListener(new View.OnClickListener() {
+=======
+        binding.button.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 0a840d735fab7b568810e38af7f1ac10d85bef24
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
+<<<<<<< HEAD
                 finish();
+=======
+>>>>>>> 0a840d735fab7b568810e38af7f1ac10d85bef24
             }
         });
     }
