@@ -37,6 +37,6 @@
         <item name="android:statusBarColor" >@color/orange</item>
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/orange</item>
-        <item name="android:windowBackground">@drawable/signinup_background</item>
+        <item name="android:windowBackground">@drawable/signin_signup_background</item>
     </style>
 </resources>
