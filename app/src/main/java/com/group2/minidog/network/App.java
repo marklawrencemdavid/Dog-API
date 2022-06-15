@@ -10,7 +10,7 @@ public class App extends Application {
     private static AppComponent appComponent;
     private static Context context;
 
-    private static final String RETROFIT_BASE_URL = "https://api.thedogapi.com/v1/";
+    private static final String RETROFIT_BASE_URL = "https://api.thedogapi.com/v1/breeds?limit=10&page=0";
 
     @Override
     public void onCreate() {

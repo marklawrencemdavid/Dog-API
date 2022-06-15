@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1033028556894",
+    "project_id": "group-2-mini-project",
+    "storage_bucket": "group-2-mini-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033028556894:android:f82096ae3c991cfbab7ccf",
+        "android_client_info": {
+          "package_name": "com.group2.minidog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033028556894-u3r4gf6vppnt2tr1er14o27vng7i2fg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group2.minidog",
+            "certificate_hash": "db895e9c6a206b86ddd933c75c478c75e9b583c9"
+          }
+        },
+        {
+          "client_id": "1033028556894-fe7qs6udkk4hsueqj5f1an6s4spbbkq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9Pje0FBcuweEMG8-mpa7ie_r_u3QorF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033028556894-fe7qs6udkk4hsueqj5f1an6s4spbbkq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
