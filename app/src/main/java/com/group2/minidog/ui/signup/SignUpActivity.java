@@ -18,14 +18,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.group2.minidog.databinding.ActivitySignUpBinding;
 import com.group2.minidog.ui.signin.SignInActivity;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements SignUpActivityI {
 
     private ActivitySignUpBinding binding;
+    private SignUpPresenterI signUpPresenterI;
     private EditText etUsername, etEmail, etPassword, etRePassword;
     private ImageButton ibSignUp;
     private TextView txtSignIn;
-
-    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +33,15 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         initView();
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        ibSignUp.setOnClickListener(view -> createUser());
+        signUpPresenterI = new SignUpPresenter(this, this);
+
+        ibSignUp.setOnClickListener(view -> signUpPresenterI.createUser(etEmail.getText().toString().trim(), etPassword.getText().toString().trim(), etRePassword.getText().toString().trim()));
         txtSignIn.setOnClickListener(view -> goToSignInActivity());
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
         etUsername = binding.etUsernameSignup;
         etEmail = binding.etEmailSignup;
         etPassword = binding.etPasswordSignup;
@@ -49,39 +50,43 @@ public class SignUpActivity extends AppCompatActivity {
         txtSignIn = binding.txtSignIn;
     }
 
-    private void createUser() {
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String rePassword = etRePassword.getText().toString().trim();
-
-        if (TextUtils.isEmpty(email)){
-            etEmail.setError("Email cannot be empty");
-            etEmail.requestFocus();
-        }else if (TextUtils.isEmpty(password)){
-            etPassword.setError("Password cannot be empty");
-            etPassword.requestFocus();
-        }else if (TextUtils.isEmpty(rePassword)){
-            etRePassword.setError("Password cannot be empty");
-            etRePassword.requestFocus();
-        }else if(!password.equals(rePassword)){
-            etPassword.setError("");
-            etRePassword.setError("Passwords does not match");
-        }else{
-            firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(SignUpActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                        goToSignInActivity();
-                    }else{
-                        Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
+    @Override
+    public void etEmailSetError(String error) {
+        etEmail.setError(error);
     }
 
-    private void goToSignInActivity(){
+    @Override
+    public void etPasswordSetError(String error) {
+        etPassword.setError(error);
+    }
+
+    @Override
+    public void etRePasswordSetError(String error) {
+        etRePassword.setError(error);
+    }
+
+    @Override
+    public void etEmailRequestFocus() {
+        etEmail.requestFocus();
+    }
+
+    @Override
+    public void etPasswordRequestFocus() {
+        etPassword.requestFocus();
+    }
+
+    @Override
+    public void etRePasswordRequestFocus() {
+        etRePassword.requestFocus();
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goToSignInActivity(){
         Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
         startActivity(intent);
         finish();

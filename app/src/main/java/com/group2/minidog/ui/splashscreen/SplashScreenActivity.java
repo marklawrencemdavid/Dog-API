@@ -15,9 +15,10 @@ import com.group2.minidog.ui.main.MainActivity;
 import com.group2.minidog.ui.signin.SignInActivity;
 
 @SuppressLint("CustomSplashScreen")
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity implements SplashScreenActivityI {
 
     private ActivitySplashScreenBinding binding;
+    private SplashScreenPresenterI splashScreenPresenterI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +26,20 @@ public class SplashScreenActivity extends AppCompatActivity {
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        checkCurrentUser();
+        splashScreenPresenterI = new SplashScreenPresenter(this);
+
+        splashScreenPresenterI.checkCurrentUser();
     }
 
-    public void checkCurrentUser() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if(user != null){
-            intent = new Intent(this, MainActivity.class);
-        }else{
-            intent = new Intent(this, SignInActivity.class);
-        }
-        startActivity(intent);
+    @Override
+    public void goToMainActivity(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void goToSignInactivity(){
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }
