@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -50,4 +51,7 @@ dependencies {
     //Dagger
     implementation 'com.google.dagger:dagger:2.42'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.42'
+    //Firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.5'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 }

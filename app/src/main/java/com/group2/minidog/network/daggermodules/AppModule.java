@@ -1,5 +1,6 @@
-package com.group2.minidog.network.modules;
+package com.group2.minidog.network.daggermodules;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
