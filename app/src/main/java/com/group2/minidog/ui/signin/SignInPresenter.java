@@ -19,25 +19,25 @@ public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerLis
     }
 
     @Override
-    public void signInGoogle() {
-        firebaseAuthManagerI.signInGoogle();
+    public void showSignInUI() {
+        firebaseAuthManagerI.showSignInUI();
     }
 
     @Override
-    public void showGoogleAccounts(int requestCode, Intent data){
-        firebaseAuthManagerI.showGoogleAccounts(requestCode, data);
+    public void signInWithGoogle(int requestCode, Intent data){
+        firebaseAuthManagerI.signInWithGoogle(requestCode, data);
     }
 
     @Override
-    public void signInEmail(String email, String password) {
-        if (TextUtils.isEmpty(email)){
+    public void signInEmailAndPassword(String email, String password) {
+        if (TextUtils.isEmpty(email.trim())){
             signInActivityI.etEmailSetError("Email cannot be empty");
             signInActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password)){
+        }else if (TextUtils.isEmpty(password.trim())){
             signInActivityI.etPasswordSetError("Password cannot be empty");
             signInActivityI.etPasswordRequestFocus();
         }else{
-            firebaseAuthManagerI.signInEmail(email, password);
+            firebaseAuthManagerI.signInEmailAndPassword(email, password);
         }
     }
 

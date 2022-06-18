@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityI
 
         signUpPresenterI = new SignUpPresenter(this, this);
 
-        ibSignUp.setOnClickListener(view -> signUpPresenterI.createUser(etEmail.getText().toString().trim(), etPassword.getText().toString().trim(), etRePassword.getText().toString().trim()));
+        ibSignUp.setOnClickListener(view -> signUpPresenterI.createUser(etEmail.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString()));
         txtSignIn.setOnClickListener(view -> goToSignInActivity());
     }
 

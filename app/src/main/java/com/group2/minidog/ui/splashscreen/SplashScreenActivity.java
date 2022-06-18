@@ -26,7 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        splashScreenPresenterI = new SplashScreenPresenter(this);
+        splashScreenPresenterI = new SplashScreenPresenter(this, this);
 
         splashScreenPresenterI.checkCurrentUser();
     }
@@ -39,7 +39,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
 
     @Override
     public void goToSignInactivity(){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, SignInActivity.class));
         finish();
     }
 }

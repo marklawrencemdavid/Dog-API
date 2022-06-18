@@ -9,8 +9,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface DogAPI {
+
     @GET("breeds")
-    Call<ArrayList<DogModel>> getDogs();
+    Call<ArrayList<DogModel>> getDogs(@Query("limit") String limit, @Query("page") String page);
 
     @GET("breeds/search")
     Call<ArrayList<DogModel>> searchDog(@Query("q") String name);

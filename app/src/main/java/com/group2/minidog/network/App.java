@@ -14,7 +14,7 @@ public class App extends Application {
     @SuppressLint("StaticFieldLeak")
     private static Context context;
 
-    private static final String RETROFIT_BASE_URL = "https://api.thedogapi.com/v1/breeds?limit=10&page=0";
+    private static final String RETROFIT_BASE_URL = "https://api.thedogapi.com/v1/";
 
     @Override
     public void onCreate() {

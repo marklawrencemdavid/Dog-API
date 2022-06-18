@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
@@ -13,8 +12,6 @@ import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,14 +28,7 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     private final SignInClient signInClient;
     private final BeginSignInRequest beginSignInRequest;
     private static final int REQ_ONE_TAP = 2;
-
-    public FirebaseAuthManager(){
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        this.activity = null;
-        this.listener = null;
-        this.signInClient = null;
-        this.beginSignInRequest = null;
-    }
+    private boolean showOneTapUI = true;
 
     public FirebaseAuthManager(Activity activity, FirebaseAuthManagerListener listener){
         this.activity = activity;
@@ -67,26 +57,28 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     }
 
     @Override
-    public void signInGoogle() {
-        if(activity == null || listener == null || signInClient == null || beginSignInRequest == null){return;}
-        signInClient.beginSignIn(beginSignInRequest)
-                .addOnSuccessListener(activity, result -> {
-                    try {
-                        activity.startIntentSenderForResult(result.getPendingIntent().getIntentSender(), REQ_ONE_TAP, null, 0, 0, 0);
-                    } catch (IntentSender.SendIntentException e) {
-                        listener.onFail("Couldn't start One Tap UI: " + e.getLocalizedMessage());
-                    }
-                })
-                .addOnFailureListener(activity, e -> {
-                    // No saved credentials found. Launch the One Tap sign-up flow, or
-                    // do nothing and continue presenting the signed-out UI.
-                    listener.onFail(e.getLocalizedMessage());
-                });
+    public void showSignInUI() {
+        if(showOneTapUI) {
+            signInClient.beginSignIn(beginSignInRequest)
+                    .addOnSuccessListener(activity, result -> {
+                        try {
+                            activity.startIntentSenderForResult(result.getPendingIntent().getIntentSender(), REQ_ONE_TAP, null, 0, 0, 0);
+                        } catch (IntentSender.SendIntentException e) {
+                            listener.onFail("Couldn't start One Tap UI: " + e.getLocalizedMessage());
+                        }
+                    })
+                    .addOnFailureListener(activity, e -> {
+                        // No saved credentials found. Launch the One Tap sign-up flow, or
+                        // do nothing and continue presenting the signed-out UI.
+                        listener.onFail(e.getLocalizedMessage());
+                    });
+        }else{
+            listener.onFail("Previous action was canceled.\n Please try again later.");
+        }
     }
 
     @Override
-    public void showGoogleAccounts(int requestCode, @Nullable Intent data){
-        if(listener == null || signInClient == null){return;}
+    public void signInWithGoogle(int requestCode, @Nullable Intent data){
         if (requestCode == REQ_ONE_TAP) {
             //Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -101,11 +93,13 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
             } catch (ApiException e) {
                 switch (e.getStatusCode()) {
                     case CommonStatusCodes.CANCELED:
-                        listener.onFail("One-tap dialog was closed.");
+                        //One-tap dialog was closed.
                         // Don't re-prompt the user.
+                        showOneTapUI = false;
                         break;
                     case CommonStatusCodes.NETWORK_ERROR:
-                        listener.onFail("One-tap encountered a network error.");
+                        //One-tap encountered a network error.
+                        listener.onFail("Network error encountered.");
                         // Try again or just ignore.
                         break;
                     default:
@@ -117,7 +111,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
-        if(activity == null || listener == null){return;}
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
             if (task.isSuccessful()) {
@@ -135,8 +128,7 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     }
 
     @Override
-    public void signInEmail(String email, String password) {
-        if(listener == null){return;}
+    public void signInEmailAndPassword(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 listener.onSuccess();
@@ -159,7 +151,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
 
     @Override
     public void signOut() {
-        if(signInClient == null){return;}
         firebaseAuth.signOut();
         signInClient.signOut();
     }

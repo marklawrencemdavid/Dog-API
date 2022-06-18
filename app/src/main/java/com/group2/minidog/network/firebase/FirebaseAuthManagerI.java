@@ -10,10 +10,10 @@ public interface FirebaseAuthManagerI {
 
     FirebaseUser checkCurrentUser();
 
-    void signInGoogle();
-    void showGoogleAccounts(int requestCode, @Nullable Intent data);
+    void showSignInUI();
+    void signInWithGoogle(int requestCode, @Nullable Intent data);
 
-    void signInEmail(String email, String password);
+    void signInEmailAndPassword(String email, String password);
 
     void signUpWithEmailAndPassword(String email, String password);
 

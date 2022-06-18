@@ -18,13 +18,13 @@ public class SignUpPresenter implements SignUpPresenterI, FirebaseAuthManagerLis
 
     @Override
     public void createUser(String email, String password, String rePassword) {
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email.trim())){
             signUpActivityI.etEmailSetError("Email cannot be empty");
             signUpActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password)){
+        }else if (TextUtils.isEmpty(password.trim())){
             signUpActivityI.etPasswordSetError("Password cannot be empty");
             signUpActivityI.etPasswordRequestFocus();
-        }else if (TextUtils.isEmpty(rePassword)){
+        }else if (TextUtils.isEmpty(rePassword.trim())){
             signUpActivityI.etRePasswordSetError("Password cannot be empty");
             signUpActivityI.etRePasswordRequestFocus();
         }else if(!password.equals(rePassword)){
