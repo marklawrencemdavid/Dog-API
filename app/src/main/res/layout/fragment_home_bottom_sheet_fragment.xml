@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +21,8 @@
             app:srcCompat="@drawable/ic_baseline_close_24" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
@@ -41,7 +43,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
         android:background="@color/divider" />
 
     <ImageView
@@ -49,16 +50,18 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/app_logo" />
+        app:srcCompat="@drawable/app_logo"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/bottomSheet_dogName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:text="Dog name"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -78,35 +81,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Breed Group:"
-                android:textColor="@color/orange" />
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Origin:"
-                android:textColor="@color/orange" />
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Life Span:"
-                android:textColor="@color/orange" />
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bred For:"
-                android:textColor="@color/orange" />
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Temperament:"
-                android:textColor="@color/orange" />
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +129,8 @@
                 android:layout_marginStart="5dp"
                 android:text="Breed Group"
                 android:textColor="@color/primary_text"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/bottomSheet_dogOrigin"
@@ -130,7 +139,8 @@
                 android:layout_marginStart="5dp"
                 android:text="Origin"
                 android:textColor="@color/primary_text"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/bottomSheet_dogLifeSpan"
@@ -139,7 +149,8 @@
                 android:layout_marginStart="5dp"
                 android:text="Life Span"
                 android:textColor="@color/primary_text"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/bottomSheet_dogBredFor"
@@ -148,7 +159,8 @@
                 android:layout_marginStart="5dp"
                 android:text="Bred For"
                 android:textColor="@color/primary_text"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/bottomSheet_dogTemperament"
@@ -157,7 +169,8 @@
                 android:layout_marginStart="5dp"
                 android:text="Temperament"
                 android:textColor="@color/primary_text"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </LinearLayout>
 
     </LinearLayout>

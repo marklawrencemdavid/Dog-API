@@ -30,14 +30,15 @@ public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerLis
 
     @Override
     public void signInEmailAndPassword(String email, String password) {
-        if (TextUtils.isEmpty(email.trim())){
+        String mEmail = email.trim(), mPassword = password.trim();
+        if (TextUtils.isEmpty(mEmail)){
             signInActivityI.etEmailSetError("Email cannot be empty");
             signInActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password.trim())){
+        }else if (TextUtils.isEmpty(mPassword)){
             signInActivityI.etPasswordSetError("Password cannot be empty");
             signInActivityI.etPasswordRequestFocus();
         }else{
-            firebaseAuthManagerI.signInEmailAndPassword(email, password);
+            firebaseAuthManagerI.signInEmailAndPassword(mEmail, mPassword);
         }
     }
 

@@ -1,24 +1,44 @@
 package com.group2.minidog.ui.main.home;
 
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+
 import com.group2.minidog.model.DogModel;
+import com.group2.minidog.network.api.DogAPIManager;
+import com.group2.minidog.network.api.DogAPIManagerI;
+import com.group2.minidog.network.api.DogAPIManagerListeners;
 
 import java.util.ArrayList;
 
-public class HomePresenter implements HomePresenterI{
+public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
 
     private final HomeFragmentI homeFragmentI;
-    private final HomeModel homeModel;
+    private final DogAPIManagerI dogAPIManagerI;
+    private String previousNameSearched;
 
     public HomePresenter(HomeFragmentI homeFragmentI) {
         this.homeFragmentI = homeFragmentI;
-        this.homeModel = new HomeModel(this);
+        this.dogAPIManagerI = new DogAPIManager(this);
+        this.previousNameSearched = "";
     }
-
 
     @Override
     public void requestData() {
         homeFragmentI.showProgressBar();
-        homeModel.getDogs(this);
+        dogAPIManagerI.getAllDogs();
+    }
+
+    @Override
+    public void search(String name) {
+        String mName = name.trim();
+        if(!TextUtils.isEmpty(mName)) {
+            if(!mName.equals(previousNameSearched)){
+                previousNameSearched = mName;
+                homeFragmentI.showProgressBar();
+                dogAPIManagerI.searchDog(mName);
+            }
+        }
     }
 
     @Override
@@ -28,7 +48,7 @@ public class HomePresenter implements HomePresenterI{
     }
 
     @Override
-    public void onFail(Throwable t) {
+    public void onFail(@NonNull Throwable t) {
         homeFragmentI.hideProgressBar();
         homeFragmentI.showToast(t.getMessage());
     }

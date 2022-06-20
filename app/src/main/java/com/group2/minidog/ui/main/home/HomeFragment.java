@@ -45,6 +45,8 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
         homePresenterI = new HomePresenter(this);
         homePresenterI.requestData();
 
+        ibSearch.setOnClickListener(view -> homePresenterI.search(etSearch.getText().toString()));
+
         return root;
     }
 

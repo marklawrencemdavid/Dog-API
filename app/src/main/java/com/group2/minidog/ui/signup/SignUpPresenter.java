@@ -18,20 +18,21 @@ public class SignUpPresenter implements SignUpPresenterI, FirebaseAuthManagerLis
 
     @Override
     public void createUser(String email, String password, String rePassword) {
-        if (TextUtils.isEmpty(email.trim())){
+        String mEmail = email.trim(), mPassword = password.trim(), mRePassword = rePassword.trim();
+        if (TextUtils.isEmpty(mEmail)){
             signUpActivityI.etEmailSetError("Email cannot be empty");
             signUpActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password.trim())){
+        }else if (TextUtils.isEmpty(mPassword)){
             signUpActivityI.etPasswordSetError("Password cannot be empty");
             signUpActivityI.etPasswordRequestFocus();
-        }else if (TextUtils.isEmpty(rePassword.trim())){
+        }else if (TextUtils.isEmpty(mRePassword)){
             signUpActivityI.etRePasswordSetError("Password cannot be empty");
             signUpActivityI.etRePasswordRequestFocus();
-        }else if(!password.equals(rePassword)){
+        }else if(!mPassword.equals(mRePassword)){
             signUpActivityI.etPasswordSetError("");
             signUpActivityI.etRePasswordSetError("Passwords does not match");
         }else{
-            firebaseAuthManager.signUpWithEmailAndPassword(email, password);
+            firebaseAuthManager.signUpWithEmailAndPassword(mEmail, mPassword);
         }
     }
 

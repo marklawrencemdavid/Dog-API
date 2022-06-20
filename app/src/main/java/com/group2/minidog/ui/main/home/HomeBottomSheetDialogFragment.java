@@ -27,10 +27,10 @@ public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
     private final Context context;
     private final DogModel dogModels;
     private BottomSheetDialog bottomSheetDialog;
-    private String undefined = "Undefined";
     private ImageView ivDogImage;
     private TextView tvDogName, tvDogBreedGroup, tvDogOrigin, tvDogLifeSpan, tvDogBredFor, tvDogTemperament;
     private ImageButton ibClose, ibSave;
+    private final String undefined = "Undefined";
 
     public HomeBottomSheetDialogFragment(Context context, DogModel dogModel) {
         this.context = context;
@@ -48,8 +48,14 @@ public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_dogbottomsheet, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_bottom_sheet_fragment, container, false);
 
+        initView(view);
+
+        return view;
+    }
+
+    private void initView(View view) {
         ivDogImage = view.findViewById(R.id.bottomSheet_dogImage);
         tvDogName = view.findViewById(R.id.bottomSheet_dogName);
         tvDogBreedGroup = view.findViewById(R.id.bottomSheet_dogBreedGroup);
@@ -59,8 +65,6 @@ public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
         tvDogTemperament = view.findViewById(R.id.bottomSheet_dogTemperament);
         ibClose = view.findViewById(R.id.bottomSheet_ibClose);
         ibSave = view.findViewById(R.id.bottomSheet_ibSave);
-
-        return view;
     }
 
     @Override

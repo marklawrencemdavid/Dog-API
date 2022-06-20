@@ -6,6 +6,5 @@ import java.util.ArrayList;
 
 public interface DogDatabaseI {
     ArrayList<DogModel> getAllDog();
-
     boolean addDog(DogModel dogModel);
 }
