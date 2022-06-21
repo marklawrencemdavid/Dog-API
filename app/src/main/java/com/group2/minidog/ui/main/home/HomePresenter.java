@@ -26,7 +26,7 @@ public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
     @Override
     public void requestData() {
         homeFragmentI.showProgressBar();
-        dogAPIManagerI.getAllDogs();
+        dogAPIManagerI.getDogsFromAPage();
     }
 
     @Override
