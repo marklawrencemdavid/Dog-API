@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.group2.minidog.model.DogModel;
+import com.group2.minidog.model.DogAPIModel;
 import com.group2.minidog.network.api.DogAPIManager;
 import com.group2.minidog.network.api.DogAPIManagerI;
 import com.group2.minidog.network.api.DogAPIManagerListeners;
@@ -42,9 +42,9 @@ public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
     }
 
     @Override
-    public void onSuccess(ArrayList<DogModel> dogModels) {
+    public void onSuccess(ArrayList<DogAPIModel> dogAPIModels) {
         homeFragmentI.hideProgressBar();
-        homeFragmentI.setDataToRecyclerview(dogModels);
+        homeFragmentI.setDataToRecyclerview(dogAPIModels);
     }
 
     @Override

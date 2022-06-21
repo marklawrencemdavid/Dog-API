@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group2.minidog.databinding.FragmentHomeBinding;
-import com.group2.minidog.model.DogModel;
+import com.group2.minidog.model.DogAPIModel;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     private HomePresenterI homePresenterI;
     private LinearLayoutManager layoutManager;
     private HomeAdapter adapter;
-    private ArrayList<DogModel> dogModels;
+    private ArrayList<DogAPIModel> dogAPIModels;
     private RecyclerView rvDog;
     private ProgressBar pbLoading;
     private EditText etSearch;
@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
 
         initView();
 
-        dogModels = new ArrayList<>();
+        dogAPIModels = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext());
         rvDog.setLayoutManager(layoutManager);
         rvDog.setHasFixedSize(true);
@@ -65,9 +65,9 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     }
 
     @Override
-    public void setDataToRecyclerview(ArrayList<DogModel> dogModels) {
-        this.dogModels = dogModels;
-        adapter = new HomeAdapter(getContext(), getParentFragmentManager(), this.dogModels);
+    public void setDataToRecyclerview(ArrayList<DogAPIModel> dogAPIModels) {
+        this.dogAPIModels = dogAPIModels;
+        adapter = new HomeAdapter(getContext(), getParentFragmentManager(), this.dogAPIModels);
         rvDog.setAdapter(adapter);
     }
 

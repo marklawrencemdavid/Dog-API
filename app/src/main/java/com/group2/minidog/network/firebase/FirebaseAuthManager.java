@@ -17,24 +17,30 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.group2.minidog.R;
+import com.group2.minidog.network.App;
+import com.group2.minidog.network.sharedpreferences.SessionManager;
 
 import java.util.Objects;
+
+import javax.inject.Inject;
 
 public class FirebaseAuthManager implements FirebaseAuthManagerI {
 
     private final Activity activity;
     private final FirebaseAuthManagerListener listener;
-    private final FirebaseAuth firebaseAuth;
     private final SignInClient signInClient;
+    private final FirebaseAuth firebaseAuth;
     private final BeginSignInRequest beginSignInRequest;
     private static final int REQ_ONE_TAP = 2;
     private boolean showOneTapUI = true;
+    @Inject
+    public SessionManager sessionManager;
 
     public FirebaseAuthManager(Activity activity, FirebaseAuthManagerListener listener){
         this.activity = activity;
         this.listener = listener;
-        this.firebaseAuth = FirebaseAuth.getInstance();
         this.signInClient = Identity.getSignInClient(activity);
+        this.firebaseAuth = FirebaseAuth.getInstance();
         this.beginSignInRequest = BeginSignInRequest.builder()
                 .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
                         .setSupported(true)
@@ -49,6 +55,7 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
                 // Automatically sign in when exactly one credential is retrieved.
                 .setAutoSelectEnabled(true)
                 .build();
+        App.getAppComponent().inject(this);
     }
 
     @Override
@@ -115,11 +122,16 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
             if (task.isSuccessful()) {
                 // Sign in success, update UI with the signed-in user's information
-                ////FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    sessionManager.setUserEmail(user.getEmail());
+                    listener.onSuccess();
+                }else{
+                    listener.onFail("Email is not yet registered.");
+                }
                 // Check if email is already exist in Firebase Realtime Database
                 // If not, show fullscreen dialog to get their name, gender, etc.
                 // Else, go to main activity
-                listener.onSuccess();
             } else {
                 // If sign in fails, display a message to the user.
                 listener.onFail("SignIn failed: " + task.getException());
@@ -131,6 +143,7 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     public void signInEmailAndPassword(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
+                sessionManager.setUserEmail(email);
                 listener.onSuccess();
             }else{
                 listener.onFail(Objects.requireNonNull(task.getException()).getMessage());
@@ -153,5 +166,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
     public void signOut() {
         firebaseAuth.signOut();
         signInClient.signOut();
+        sessionManager.removeUserEmail();
     }
 }

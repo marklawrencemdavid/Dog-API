@@ -20,21 +20,28 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.group2.minidog.R;
-import com.group2.minidog.model.DogModel;
+import com.group2.minidog.model.DogAPIModel;
+import com.group2.minidog.network.App;
+import com.group2.minidog.network.sqlite.DogDatabase;
 
-public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
+import javax.inject.Inject;
+
+public class HomeDogItemBSDF extends BottomSheetDialogFragment {
 
     private final Context context;
-    private final DogModel dogModels;
+    private final DogAPIModel dogAPIModel;
     private BottomSheetDialog bottomSheetDialog;
     private ImageView ivDogImage;
     private TextView tvDogName, tvDogBreedGroup, tvDogOrigin, tvDogLifeSpan, tvDogBredFor, tvDogTemperament;
     private ImageButton ibClose, ibSave;
     private final String undefined = "Undefined";
+    @Inject
+    public DogDatabase dogDatabase;
 
-    public HomeBottomSheetDialogFragment(Context context, DogModel dogModel) {
+    public HomeDogItemBSDF(Context context, DogAPIModel dogAPIModel) {
         this.context = context;
-        this.dogModels = dogModel;
+        this.dogAPIModel = dogAPIModel;
+        App.getAppComponent().inject(this);
     }
 
     @NonNull
@@ -48,7 +55,7 @@ public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_home_bottom_sheet_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_dog_item_bsdf, container, false);
 
         initView(view);
 
@@ -78,25 +85,25 @@ public class HomeBottomSheetDialogFragment extends BottomSheetDialogFragment {
         assert layout != null;
         layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
 
-        Glide.with(context).load(dogModels.getImageURL()).into(ivDogImage);
-        tvDogName.setText(dogModels.getName());
-        if (dogModels.getBreedGroup() == null) tvDogBreedGroup.setText(undefined);
-        else tvDogBreedGroup.setText(dogModels.getBreedGroup());
+        Glide.with(context).load(dogAPIModel.getImageURL()).into(ivDogImage);
+        tvDogName.setText(dogAPIModel.getName());
+        if (dogAPIModel.getBreedGroup() == null) tvDogBreedGroup.setText(undefined);
+        else tvDogBreedGroup.setText(dogAPIModel.getBreedGroup());
 
-        if(dogModels.getOrigin() == null) tvDogOrigin.setText(undefined);
-        else tvDogOrigin.setText(dogModels.getOrigin());
+        if(dogAPIModel.getOrigin() == null) tvDogOrigin.setText(undefined);
+        else tvDogOrigin.setText(dogAPIModel.getOrigin());
 
-        if(dogModels.getLifeSpan() == null) tvDogLifeSpan.setText(undefined);
-        else tvDogLifeSpan.setText(dogModels.getLifeSpan());
+        if(dogAPIModel.getLifeSpan() == null) tvDogLifeSpan.setText(undefined);
+        else tvDogLifeSpan.setText(dogAPIModel.getLifeSpan());
 
-        if(dogModels.getBredFor() == null) tvDogBredFor.setText(undefined);
-        else tvDogBredFor.setText(dogModels.getBredFor());
+        if(dogAPIModel.getBredFor() == null) tvDogBredFor.setText(undefined);
+        else tvDogBredFor.setText(dogAPIModel.getBredFor());
 
-        if(dogModels.getTemperament() == null) tvDogTemperament.setText(undefined);
-        else tvDogTemperament.setText(dogModels.getTemperament());
+        if(dogAPIModel.getTemperament() == null) tvDogTemperament.setText(undefined);
+        else tvDogTemperament.setText(dogAPIModel.getTemperament());
 
         ibClose.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
 
-        ibSave.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
+        ibSave.setOnClickListener(v -> dogDatabase.addDog(dogAPIModel));
     }
 }

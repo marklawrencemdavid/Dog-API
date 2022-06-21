@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.group2.minidog.network.firebase.FirebaseAuthManager;
+import com.group2.minidog.network.firebase.FirebaseAuthManagerI;
 import com.group2.minidog.network.firebase.FirebaseAuthManagerListener;
+import com.group2.minidog.network.sharedpreferences.SessionManager;
 import com.group2.minidog.network.sqlite.DogDatabase;
 
 import javax.inject.Singleton;
@@ -51,5 +53,17 @@ public class NetworkModule {
     @Singleton
     public SharedPreferences providesSharedPreferences(Application application){
         return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    @Singleton
+    public SessionManager providesSessionManager(){
+        return new SessionManager();
+    }
+
+    @Provides
+    @Singleton
+    public FirebaseAuthManagerI providesFirebaseAuthManagerI(Activity activity, FirebaseAuthManagerListener listener){
+        return new FirebaseAuthManager(activity, listener);
     }
 }

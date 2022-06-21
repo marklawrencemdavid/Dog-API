@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.group2.minidog.R;
-import com.group2.minidog.model.DogModel;
+import com.group2.minidog.model.DogAPIModel;
 
 import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
     private final Context context;
     private final FragmentManager fragmentManager;
-    private final ArrayList<DogModel> dogModels;
-    private final ArrayList<DogModel> dogModelsOriginalUtil;
+    private final ArrayList<DogAPIModel> dogAPIModels;
+    private final ArrayList<DogAPIModel> dogAPIModelsOriginalUtil;
 
-    public HomeAdapter(Context context, FragmentManager fragmentManager, ArrayList<DogModel> dogModels) {
+    public HomeAdapter(Context context, FragmentManager fragmentManager, ArrayList<DogAPIModel> dogAPIModels) {
         this.context = context;
         this.fragmentManager = fragmentManager;
-        this.dogModels = dogModels;
-        this.dogModelsOriginalUtil = dogModels;
+        this.dogAPIModels = dogAPIModels;
+        this.dogAPIModelsOriginalUtil = dogAPIModels;
     }
 
     @NonNull
@@ -40,20 +40,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.tvName.setText(dogModels.get(position).getName());
-        holder.tvLifeSpan.setText(dogModels.get(position).getLifeSpan());
-        holder.tvOrigin.setText(dogModels.get(position).getOrigin());
-        Glide.with(context).load(dogModels.get(position).getImageURL()).into(holder.ivImage);
+        holder.tvName.setText(dogAPIModels.get(position).getName());
+        holder.tvLifeSpan.setText(dogAPIModels.get(position).getLifeSpan());
+        holder.tvOrigin.setText(dogAPIModels.get(position).getOrigin());
+        Glide.with(context).load(dogAPIModels.get(position).getImageURL()).into(holder.ivImage);
 
         holder.itemView.setOnClickListener(view -> {
-            HomeBottomSheetDialogFragment homeBottomSheetDialogFragment = new HomeBottomSheetDialogFragment(context, dogModels.get(position));
-            homeBottomSheetDialogFragment.show(fragmentManager, homeBottomSheetDialogFragment.getTag());
+            HomeDogItemBSDF homeDogItemBSDF = new HomeDogItemBSDF(context, dogAPIModels.get(position));
+            homeDogItemBSDF.show(fragmentManager, homeDogItemBSDF.getTag());
         });
     }
 
     @Override
     public int getItemCount() {
-        return dogModels.size();
+        return dogAPIModels.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
