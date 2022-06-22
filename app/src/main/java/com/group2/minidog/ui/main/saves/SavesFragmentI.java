@@ -8,7 +8,13 @@ public interface SavesFragmentI {
     void initView();
 
     void setDataToRecyclerview(ArrayList<DogSQLiteModel> dogSQLiteModels);
-    void notifyAdapter(int position);
+    void search(String name);
+
+    void notifyAdapter();
+    void notifyAdapterUpdate(DogSQLiteModel dogSQLiteModel, int position);
+    void notifyAdapterRemove(int position);
+
+    void showSavesEditBSDF(DogSQLiteModel dogSQLiteModel, int posotion);
 
     void showToast(String message);
 

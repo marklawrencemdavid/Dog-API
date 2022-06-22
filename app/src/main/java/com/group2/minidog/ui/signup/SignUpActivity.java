@@ -2,19 +2,13 @@ package com.group2.minidog.ui.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.group2.minidog.databinding.ActivitySignUpBinding;
 import com.group2.minidog.ui.signin.SignInActivity;
 
@@ -31,8 +25,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityI
         super.onCreate(savedInstanceState);
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        initView();
 
         signUpPresenterI = new SignUpPresenter(this, this);
 
@@ -87,8 +79,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityI
 
     @Override
     public void goToSignInActivity(){
-        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
         finish();
     }
 }

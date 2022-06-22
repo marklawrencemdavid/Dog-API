@@ -5,28 +5,34 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.group2.minidog.model.DogAPIModel;
+import com.group2.minidog.network.App;
 import com.group2.minidog.network.api.DogAPIManager;
-import com.group2.minidog.network.api.DogAPIManagerI;
 import com.group2.minidog.network.api.DogAPIManagerListeners;
+import com.group2.minidog.network.sqlite.DogDatabase;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
 
     private final HomeFragmentI homeFragmentI;
-    private final DogAPIManagerI dogAPIManagerI;
-    private String previousNameSearched;
+    private final DogAPIManager dogAPIManager;
+    private String previousNameSearched = "";
+    @Inject
+    public DogDatabase dogDatabase;
 
     public HomePresenter(HomeFragmentI homeFragmentI) {
+        App.getAppComponent().inject(this);
         this.homeFragmentI = homeFragmentI;
-        this.dogAPIManagerI = new DogAPIManager(this);
-        this.previousNameSearched = "";
+        this.dogAPIManager = new DogAPIManager(this);
+        onPresenterCreated();
     }
 
-    @Override
-    public void requestData() {
+    private void onPresenterCreated() {
+        homeFragmentI.initView();
         homeFragmentI.showProgressBar();
-        dogAPIManagerI.getDogsFromAPage();
+        dogAPIManager.getDogsFromAPage();
     }
 
     @Override
@@ -36,8 +42,17 @@ public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
             if(!mName.equals(previousNameSearched)){
                 previousNameSearched = mName;
                 homeFragmentI.showProgressBar();
-                dogAPIManagerI.searchDog(mName);
+                dogAPIManager.searchDog(mName);
             }
+        }
+    }
+
+    @Override
+    public void addDog(DogAPIModel dogAPIModel) {
+        if(dogDatabase.addDog(dogAPIModel)){
+            homeFragmentI.showToast("Dog saved successfully.");
+        }else{
+            homeFragmentI.showToast("Failed to save dog.");
         }
     }
 

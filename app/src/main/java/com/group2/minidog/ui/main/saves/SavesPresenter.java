@@ -13,22 +13,45 @@ public class SavesPresenter implements SavesPresenterI{
     public DogDatabase dogDatabase;
 
     public SavesPresenter(SavesFragmentI savesFragmentI) {
-        this.savesFragmentI = savesFragmentI;
         App.getAppComponent().inject(this);
+        this.savesFragmentI = savesFragmentI;
+        onPresenterCreated();
     }
 
-    @Override
-    public void getData() {
+    private void onPresenterCreated() {
+        savesFragmentI.initView();
         savesFragmentI.showProgressBar();
         savesFragmentI.setDataToRecyclerview(dogDatabase.getAllDog());
         savesFragmentI.hideProgressBar();
     }
 
     @Override
-    public void deleteData(DogSQLiteModel dogSQLiteModels, int position) {
+    public void onSearch(String name) {
         savesFragmentI.showProgressBar();
-        if(dogDatabase.deleteDog(dogSQLiteModels.getSqliteId())){
-            savesFragmentI.notifyAdapter(position);
+        savesFragmentI.search(name);
+        savesFragmentI.hideProgressBar();
+    }
+
+    @Override
+    public void showSavesEditBSDF(DogSQLiteModel dogSQLiteModel, int position) {
+        savesFragmentI.showSavesEditBSDF(dogSQLiteModel, position);
+    }
+
+    @Override
+    public void updateDog(DogSQLiteModel dogSQLiteModel, int position) {
+        if(dogDatabase.updateDog(dogSQLiteModel)){
+            savesFragmentI.notifyAdapterUpdate(dogSQLiteModel, position);
+            savesFragmentI.showToast("Dog updated successfully.");
+        }else{
+            savesFragmentI.showToast("Failed to update dog data.");
+        }
+    }
+
+    @Override
+    public void deleteDog(DogSQLiteModel dogSQLiteModel, int position) {
+        savesFragmentI.showProgressBar();
+        if(dogDatabase.deleteDog(dogSQLiteModel)){
+            savesFragmentI.notifyAdapterRemove(position);
             savesFragmentI.showToast("Deleted");
         }else{
             savesFragmentI.showToast("Failed to delete dog.");

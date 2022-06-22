@@ -6,10 +6,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.group2.minidog.databinding.ActivitySplashScreenBinding;
 import com.group2.minidog.ui.main.MainActivity;
 import com.group2.minidog.ui.signin.SignInActivity;
@@ -27,7 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
         setContentView(binding.getRoot());
 
         splashScreenPresenterI = new SplashScreenPresenter(this, this);
-
         splashScreenPresenterI.checkCurrentUser();
     }
 

@@ -20,12 +20,14 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
     private final Context context;
+    private final HomePresenterI homePresenterI;
     private final FragmentManager fragmentManager;
     private final ArrayList<DogAPIModel> dogAPIModels;
     private final ArrayList<DogAPIModel> dogAPIModelsOriginalUtil;
 
-    public HomeAdapter(Context context, FragmentManager fragmentManager, ArrayList<DogAPIModel> dogAPIModels) {
+    public HomeAdapter(Context context, HomePresenterI homePresenterI, FragmentManager fragmentManager, ArrayList<DogAPIModel> dogAPIModels) {
         this.context = context;
+        this.homePresenterI = homePresenterI;
         this.fragmentManager = fragmentManager;
         this.dogAPIModels = dogAPIModels;
         this.dogAPIModelsOriginalUtil = dogAPIModels;
@@ -46,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
         Glide.with(context).load(dogAPIModels.get(position).getImageURL()).into(holder.ivImage);
 
         holder.itemView.setOnClickListener(view -> {
-            HomeDogItemBSDF homeDogItemBSDF = new HomeDogItemBSDF(context, dogAPIModels.get(position));
+            HomeDogItemBSDF homeDogItemBSDF = new HomeDogItemBSDF(context, homePresenterI, dogAPIModels.get(position));
             homeDogItemBSDF.show(fragmentManager, homeDogItemBSDF.getTag());
         });
     }
@@ -68,7 +70,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
             tvName = itemView.findViewById(R.id.tv_name_home);
             tvLifeSpan = itemView.findViewById(R.id.tv_lifespan_home);
             tvOrigin = itemView.findViewById(R.id.tv_origin_home);
-            bottomSheetContainer = itemView.findViewById(R.id.bottomSheetContainer);
+            bottomSheetContainer = itemView.findViewById(R.id.bottomSheetHome);
         }
     }
 }

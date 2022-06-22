@@ -14,12 +14,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class DogAPIManager implements DogAPIManagerI {
+public class DogAPIManager {
 
-    @Inject
-    public Retrofit retrofit;
     private final DogAPICalls dogAPICalls;
     private final DogAPIManagerListeners listeners;
+    @Inject
+    public Retrofit retrofit;
 
     public DogAPIManager(DogAPIManagerListeners listeners) {
         App.getAppComponent().inject(this);
@@ -27,7 +27,6 @@ public class DogAPIManager implements DogAPIManagerI {
         this.listeners = listeners;
     }
 
-    @Override
     public void getAllDogs(){
         Call<ArrayList<DogAPIModel>> call = dogAPICalls.getAllDogs();
         call.enqueue(new Callback<ArrayList<DogAPIModel>>() {
@@ -47,7 +46,6 @@ public class DogAPIManager implements DogAPIManagerI {
         });
     }
 
-    @Override
     public void getDogsFromAPage(/*String limit, String page*/){
         String limit = "10", page = "1";
         Call<ArrayList<DogAPIModel>> call = dogAPICalls.getDogsFromAPage(limit, page);
@@ -68,7 +66,6 @@ public class DogAPIManager implements DogAPIManagerI {
         });
     }
 
-    @Override
     public void searchDog(String name){
         Call<ArrayList<DogAPIModel>> call = dogAPICalls.searchDog(name);
         call.enqueue(new Callback<ArrayList<DogAPIModel>>() {

@@ -2,36 +2,28 @@ package com.group2.minidog.ui.splashscreen;
 
 import android.app.Activity;
 
-import com.group2.minidog.network.firebase.FirebaseAuthManager;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerI;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.group2.minidog.network.App;
 
-public class SplashScreenPresenter implements SplashScreenPresenterI, FirebaseAuthManagerListener {
+import javax.inject.Inject;
 
-    private SplashScreenActivityI splashScreenActivityI;
-    private FirebaseAuthManagerI firebaseAuthManagerI;
+public class SplashScreenPresenter implements SplashScreenPresenterI {
+
+    private final SplashScreenActivityI splashScreenActivityI;
+    @Inject
+    public FirebaseUser firebaseUser;
 
     public SplashScreenPresenter(SplashScreenActivityI splashScreenActivityI, Activity activity){
+        App.getAppComponent().inject(this);
         this.splashScreenActivityI = splashScreenActivityI;
-        this.firebaseAuthManagerI = new FirebaseAuthManager(activity, this);
     }
 
     @Override
     public void checkCurrentUser(){
-        if(firebaseAuthManagerI.checkCurrentUser() == null){
+        if(firebaseUser == null){
             splashScreenActivityI.goToSignInactivity();
         }else{
             splashScreenActivityI.goToMainActivity();
         }
-    }
-
-    @Override
-    public void onSuccess() {
-
-    }
-
-    @Override
-    public void onFail(String message) {
-
     }
 }

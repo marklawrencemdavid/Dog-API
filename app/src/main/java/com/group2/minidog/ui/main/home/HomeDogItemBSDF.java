@@ -21,10 +21,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.group2.minidog.R;
 import com.group2.minidog.model.DogAPIModel;
-import com.group2.minidog.network.App;
-import com.group2.minidog.network.sqlite.DogDatabase;
-
-import javax.inject.Inject;
 
 public class HomeDogItemBSDF extends BottomSheetDialogFragment {
 
@@ -34,14 +30,12 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
     private ImageView ivDogImage;
     private TextView tvDogName, tvDogBreedGroup, tvDogOrigin, tvDogLifeSpan, tvDogBredFor, tvDogTemperament;
     private ImageButton ibClose, ibSave;
-    private final String undefined = "Undefined";
-    @Inject
-    public DogDatabase dogDatabase;
+    private final HomePresenterI homePresenterI;
 
-    public HomeDogItemBSDF(Context context, DogAPIModel dogAPIModel) {
+    public HomeDogItemBSDF(Context context, HomePresenterI homePresenterI, DogAPIModel dogAPIModel) {
         this.context = context;
+        this.homePresenterI = homePresenterI;
         this.dogAPIModel = dogAPIModel;
-        App.getAppComponent().inject(this);
     }
 
     @NonNull
@@ -57,12 +51,6 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_home_dog_item_bsdf, container, false);
 
-        initView(view);
-
-        return view;
-    }
-
-    private void initView(View view) {
         ivDogImage = view.findViewById(R.id.bottomSheet_dogImage);
         tvDogName = view.findViewById(R.id.bottomSheet_dogName);
         tvDogBreedGroup = view.findViewById(R.id.bottomSheet_dogBreedGroup);
@@ -70,18 +58,21 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         tvDogLifeSpan = view.findViewById(R.id.bottomSheet_dogLifeSpan);
         tvDogBredFor = view.findViewById(R.id.bottomSheet_dogBredFor);
         tvDogTemperament = view.findViewById(R.id.bottomSheet_dogTemperament);
-        ibClose = view.findViewById(R.id.bottomSheet_ibClose);
-        ibSave = view.findViewById(R.id.bottomSheet_ibSave);
+        ibClose = view.findViewById(R.id.ib_Close_bottomSheetHome);
+        ibSave = view.findViewById(R.id.ib_Save_bottomSheetHome);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String undefined = "Undefined";
 
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-        LinearLayout layout = bottomSheetDialog.findViewById(R.id.bottomSheetContainer);
+        LinearLayout layout = bottomSheetDialog.findViewById(R.id.bottomSheetHome);
         assert layout != null;
         layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
 
@@ -102,8 +93,11 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         if(dogAPIModel.getTemperament() == null) tvDogTemperament.setText(undefined);
         else tvDogTemperament.setText(dogAPIModel.getTemperament());
 
-        ibClose.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
+        ibSave.setOnClickListener(v -> {
+            homePresenterI.addDog(dogAPIModel);
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        });
 
-        ibSave.setOnClickListener(v -> dogDatabase.addDog(dogAPIModel));
+        ibClose.setOnClickListener(v -> bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
     }
 }

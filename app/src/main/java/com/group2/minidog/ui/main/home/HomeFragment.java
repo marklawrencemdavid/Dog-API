@@ -23,7 +23,6 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
 
     private FragmentHomeBinding binding;
     private HomePresenterI homePresenterI;
-    private LinearLayoutManager layoutManager;
     private HomeAdapter adapter;
     private ArrayList<DogAPIModel> dogAPIModels;
     private RecyclerView rvDog;
@@ -33,21 +32,13 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        initView();
-
-        dogAPIModels = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(getContext());
-        rvDog.setLayoutManager(layoutManager);
-        rvDog.setHasFixedSize(true);
+        View view = binding.getRoot();
 
         homePresenterI = new HomePresenter(this);
-        homePresenterI.requestData();
 
-        ibSearch.setOnClickListener(view -> homePresenterI.search(etSearch.getText().toString()));
+        ibSearch.setOnClickListener(v -> homePresenterI.search(etSearch.getText().toString()));
 
-        return root;
+        return view;
     }
 
     @Override
@@ -58,22 +49,25 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
 
     @Override
     public void initView() {
+        dogAPIModels = new ArrayList<>();
         ibSearch = binding.ibSearchHome;
         etSearch = binding.etSearchHome;
-        rvDog =  binding.rvDogHome;
         pbLoading = binding.pbLoadingHome;
+        rvDog =  binding.rvDogHome;
+        rvDog.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvDog.setHasFixedSize(true);
     }
 
     @Override
     public void setDataToRecyclerview(ArrayList<DogAPIModel> dogAPIModels) {
         this.dogAPIModels = dogAPIModels;
-        adapter = new HomeAdapter(getContext(), getParentFragmentManager(), this.dogAPIModels);
+        adapter = new HomeAdapter(getContext(), homePresenterI, getParentFragmentManager(), this.dogAPIModels);
         rvDog.setAdapter(adapter);
     }
 
     @Override
     public void showToast(String message) {
-        Toast.makeText(getContext(), "Error in getting data.\n"+message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

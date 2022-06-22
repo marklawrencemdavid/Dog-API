@@ -1,46 +1,33 @@
 package com.group2.minidog.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group2.minidog.R;
 import com.group2.minidog.databinding.ActivityMainBinding;
-import com.group2.minidog.ui.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity implements MainActivityI {
 
     private ActivityMainBinding binding;
     private MainPresenterI mainPresenterI;
-    private FloatingActionButton fab_signout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        initView();
-
         mainPresenterI = new MainPresenter(this, this);
-
-        fab_signout.setOnClickListener(view -> mainPresenterI.signout());
     }
 
     @Override
     public void initView() {
-        fab_signout = binding.fabSignout;
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -50,11 +37,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityI {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-    }
-
-    @Override
-    public void goToSignInActivity() {
-        startActivity(new Intent(this, SignInActivity.class));
-        finish();
     }
 }

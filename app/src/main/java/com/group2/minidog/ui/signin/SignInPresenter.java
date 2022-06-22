@@ -5,27 +5,31 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.group2.minidog.network.firebase.FirebaseAuthManager;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerI;
 import com.group2.minidog.network.firebase.FirebaseAuthManagerListener;
 
 public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerListener {
 
     private final SignInActivityI signInActivityI;
-    private final FirebaseAuthManagerI firebaseAuthManagerI;
+    private final FirebaseAuthManager firebaseAuthManager;
 
     public SignInPresenter(SignInActivityI signInActivityI, Activity activity){
         this.signInActivityI = signInActivityI;
-        this.firebaseAuthManagerI = new FirebaseAuthManager(activity,this);
+        this.firebaseAuthManager = new FirebaseAuthManager(activity,this);
+        onPresenterCreated();
+    }
+
+    private void onPresenterCreated() {
+        signInActivityI.initView();
     }
 
     @Override
     public void showSignInUI() {
-        firebaseAuthManagerI.showSignInUI();
+        firebaseAuthManager.showSignInUI();
     }
 
     @Override
     public void signInWithGoogle(int requestCode, Intent data){
-        firebaseAuthManagerI.signInWithGoogle(requestCode, data);
+        firebaseAuthManager.signInWithGoogle(requestCode, data);
     }
 
     @Override
@@ -38,7 +42,7 @@ public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerLis
             signInActivityI.etPasswordSetError("Password cannot be empty");
             signInActivityI.etPasswordRequestFocus();
         }else{
-            firebaseAuthManagerI.signInEmailAndPassword(mEmail, mPassword);
+            firebaseAuthManager.signInEmailAndPassword(mEmail, mPassword);
         }
     }
 

@@ -14,9 +14,7 @@ public class DogSQLiteModel extends DogAPIModel{
         this.timeCreated = builder.timeCreated;
     }
 
-    public int getSqliteId() {
-        return sqliteId;
-    }
+    public int getSqliteId() { return sqliteId; }
 
     public String getUserEmail() {
         return userEmail;
@@ -24,6 +22,11 @@ public class DogSQLiteModel extends DogAPIModel{
 
     public String getTimeCreated() {
         return timeCreated;
+    }
+
+    @Override
+    public String getImageURL() {
+        return super.getReferenceImageId();
     }
 
     public static class Builder{

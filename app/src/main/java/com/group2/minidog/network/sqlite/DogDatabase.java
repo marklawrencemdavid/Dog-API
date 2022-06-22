@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.group2.minidog.model.DogAPIModel;
 import com.group2.minidog.model.DogSQLiteModel;
 import com.group2.minidog.network.App;
-import com.group2.minidog.network.sharedpreferences.SessionManager;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,11 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
     private static final String DATABASE_NAME = "minidog.db";
     private static final int DATABASE_VERSION = 2;
     @Inject
-    public SessionManager sessionManager;
+    public FirebaseUser firebaseUser;
 
     public DogDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         App.getAppComponent().inject(this);
-
     }
 
     @Override
@@ -55,11 +54,10 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         onCreate(sqLiteDatabase);
     }
 
-    //@Override
     public ArrayList<DogSQLiteModel> getAllDog() {
         ArrayList<DogSQLiteModel> dogSQLiteModels = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String[] selectionArgs = {sessionManager.getUserEmail()};
+        String[] selectionArgs = {firebaseUser.getEmail()};
 
         final Cursor cursor = sqLiteDatabase.rawQuery(
                 "SELECT * FROM " + DogContract.DogEntry.TABLE_NAME + " WHERE " + DogContract.DogEntry.COLUMN_USER_EMAIL + " = ?",
@@ -90,7 +88,6 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         return dogSQLiteModels;
     }
 
-    //@Override
     public boolean addDog(DogAPIModel dogAPIModel) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -102,8 +99,8 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         contentValues.put(DogContract.DogEntry.COLUMN_DOG_LIFE_SPAN, dogAPIModel.getLifeSpan());
         contentValues.put(DogContract.DogEntry.COLUMN_DOG_TEMPERAMENT, dogAPIModel.getTemperament());
         contentValues.put(DogContract.DogEntry.COLUMN_DOG_ORIGIN, dogAPIModel.getOrigin());
-        contentValues.put(DogContract.DogEntry.COLUMN_DOG_REFERENCE_IMAGE_ID, dogAPIModel.getReferenceImageId());
-        contentValues.put(DogContract.DogEntry.COLUMN_USER_EMAIL, sessionManager.getUserEmail());
+        contentValues.put(DogContract.DogEntry.COLUMN_DOG_REFERENCE_IMAGE_ID, dogAPIModel.getImageURL());
+        contentValues.put(DogContract.DogEntry.COLUMN_USER_EMAIL, firebaseUser.getEmail());
 
         long count = sqLiteDatabase.insert(DogContract.DogEntry.TABLE_NAME, null, contentValues);
         sqLiteDatabase.close();
@@ -111,7 +108,6 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         return count != -1;
     }
 
-    //@Override
     public boolean updateDog(DogSQLiteModel dogSQLiteModel) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
@@ -131,7 +127,7 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         String[] selectionArgs = {String.valueOf(dogSQLiteModel.getSqliteId()), dogSQLiteModel.getUserEmail()};
 
         try (Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DogContract.DogEntry.TABLE_NAME +
-                " WHERE " + DogContract.DogEntry.COLUMN_DOG_ID + " = ?  AND " + DogContract.DogEntry.COLUMN_USER_EMAIL + " = ?",
+                " WHERE " + DogContract.DogEntry.COLUMN_ID + " = ?  AND " + DogContract.DogEntry.COLUMN_USER_EMAIL + " = ?",
                 selectionArgs)){
             if (cursor.getCount() > 0) {
                 long count = sqLiteDatabase.update(DogContract.DogEntry.TABLE_NAME,
@@ -150,8 +146,8 @@ public class DogDatabase extends SQLiteOpenHelper implements DogDatabaseI {
         }
     }
 
-    //@Override
-    public boolean deleteDog(int sqliteId) {
+    public boolean deleteDog(DogSQLiteModel dogSQLiteModel) {
+        int sqliteId = dogSQLiteModel.getSqliteId();
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         String[] selectionArgs = {String.valueOf(sqliteId)};
         try (Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DogContract.DogEntry.TABLE_NAME +

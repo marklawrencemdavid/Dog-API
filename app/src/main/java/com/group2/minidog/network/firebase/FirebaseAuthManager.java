@@ -18,54 +18,45 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.group2.minidog.R;
 import com.group2.minidog.network.App;
-import com.group2.minidog.network.sharedpreferences.SessionManager;
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class FirebaseAuthManager implements FirebaseAuthManagerI {
+public class FirebaseAuthManager {
 
     private final Activity activity;
     private final FirebaseAuthManagerListener listener;
     private final SignInClient signInClient;
-    private final FirebaseAuth firebaseAuth;
-    private final BeginSignInRequest beginSignInRequest;
     private static final int REQ_ONE_TAP = 2;
     private boolean showOneTapUI = true;
     @Inject
-    public SessionManager sessionManager;
+    public FirebaseAuth firebaseAuth;
 
     public FirebaseAuthManager(Activity activity, FirebaseAuthManagerListener listener){
+        App.getAppComponent().inject(this);
         this.activity = activity;
         this.listener = listener;
         this.signInClient = Identity.getSignInClient(activity);
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        this.beginSignInRequest = BeginSignInRequest.builder()
-                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
-                        .setSupported(true)
-                        .build())
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        // Your server's client ID, not your Android client ID.
-                        .setServerClientId(activity.getResources().getString(R.string.default_web_client_id))
-                        // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                // Automatically sign in when exactly one credential is retrieved.
-                .setAutoSelectEnabled(true)
-                .build();
-        App.getAppComponent().inject(this);
     }
 
-    @Override
-    public FirebaseUser checkCurrentUser() {
-        return firebaseAuth.getCurrentUser();
-    }
-
-    @Override
     public void showSignInUI() {
         if(showOneTapUI) {
+            BeginSignInRequest beginSignInRequest = BeginSignInRequest.builder()
+                    .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                            .setSupported(true)
+                            .build())
+                    .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                            .setSupported(true)
+                            // Your server's client ID, not your Android client ID.
+                            .setServerClientId(activity.getResources().getString(R.string.default_web_client_id))
+                            // Only show accounts previously used to sign in.
+                            .setFilterByAuthorizedAccounts(true)
+                            .build())
+                    // Automatically sign in when exactly one credential is retrieved.
+                    .setAutoSelectEnabled(true)
+                    .build();
+
             signInClient.beginSignIn(beginSignInRequest)
                     .addOnSuccessListener(activity, result -> {
                         try {
@@ -75,8 +66,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
                         }
                     })
                     .addOnFailureListener(activity, e -> {
-                        // No saved credentials found. Launch the One Tap sign-up flow, or
-                        // do nothing and continue presenting the signed-out UI.
                         listener.onFail(e.getLocalizedMessage());
                     });
         }else{
@@ -84,7 +73,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
         }
     }
 
-    @Override
     public void signInWithGoogle(int requestCode, @Nullable Intent data){
         if (requestCode == REQ_ONE_TAP) {
             //Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -124,7 +112,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
                 // Sign in success, update UI with the signed-in user's information
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    sessionManager.setUserEmail(user.getEmail());
                     listener.onSuccess();
                 }else{
                     listener.onFail("Email is not yet registered.");
@@ -139,11 +126,9 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
         });
     }
 
-    @Override
     public void signInEmailAndPassword(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                sessionManager.setUserEmail(email);
                 listener.onSuccess();
             }else{
                 listener.onFail(Objects.requireNonNull(task.getException()).getMessage());
@@ -151,7 +136,6 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
         });
     }
 
-    @Override
     public void signUpWithEmailAndPassword(String email, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
@@ -162,10 +146,8 @@ public class FirebaseAuthManager implements FirebaseAuthManagerI {
         });
     }
 
-    @Override
     public void signOut() {
         firebaseAuth.signOut();
         signInClient.signOut();
-        sessionManager.removeUserEmail();
     }
 }

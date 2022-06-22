@@ -14,6 +14,11 @@ public class SignUpPresenter implements SignUpPresenterI, FirebaseAuthManagerLis
     public SignUpPresenter(SignUpActivityI signUpActivityI, Activity activity){
         this.signUpActivityI = signUpActivityI;
         this.firebaseAuthManager = new FirebaseAuthManager(activity, this);
+        onPresenterCreated();
+    }
+
+    private void onPresenterCreated() {
+        signUpActivityI.initView();
     }
 
     @Override

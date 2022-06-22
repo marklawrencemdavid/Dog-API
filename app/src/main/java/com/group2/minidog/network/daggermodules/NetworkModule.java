@@ -1,15 +1,12 @@
 package com.group2.minidog.network.daggermodules;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.group2.minidog.network.firebase.FirebaseAuthManager;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerI;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerListener;
-import com.group2.minidog.network.sharedpreferences.SessionManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group2.minidog.network.sqlite.DogDatabase;
 
 import javax.inject.Singleton;
@@ -57,13 +54,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public SessionManager providesSessionManager(){
-        return new SessionManager();
+    public FirebaseAuth providesFirebaseAuth(){
+        return FirebaseAuth.getInstance();
     }
 
     @Provides
     @Singleton
-    public FirebaseAuthManagerI providesFirebaseAuthManagerI(Activity activity, FirebaseAuthManagerListener listener){
-        return new FirebaseAuthManager(activity, listener);
+    public FirebaseUser providesFirebaseUser(FirebaseAuth firebaseAuth){
+        return firebaseAuth.getCurrentUser();
     }
 }

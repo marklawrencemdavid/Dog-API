@@ -1,9 +1,12 @@
 package com.group2.minidog.ui.main.saves;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,17 +19,15 @@ import com.group2.minidog.model.DogSQLiteModel;
 
 import java.util.ArrayList;
 
-public class SavesAdapter extends RecyclerView.Adapter<SavesAdapter.MyViewHolder>{
-    private SavesPresenterI savesPresenterI;
+public class SavesAdapter extends RecyclerView.Adapter<SavesAdapter.MyViewHolder> implements Filterable {
     private final Context context;
-    private final ArrayList<DogSQLiteModel> dogSQLiteModels;
-    private final ArrayList<DogSQLiteModel> dogSQLiteModelsOriginalUtil;
+    private ArrayList<DogSQLiteModel> dogSQLiteModels;
+    private final ArrayList<DogSQLiteModel> dogSQLiteModelsAll;
 
-    public SavesAdapter(SavesPresenterI savesPresenterI, Context context, ArrayList<DogSQLiteModel> dogSQLiteModels) {
-        this.savesPresenterI = savesPresenterI;
+    public SavesAdapter(Context context, ArrayList<DogSQLiteModel> dogSQLiteModels) {
         this.context = context;
         this.dogSQLiteModels = dogSQLiteModels;
-        this.dogSQLiteModelsOriginalUtil = dogSQLiteModels;
+        this.dogSQLiteModelsAll = dogSQLiteModels;
     }
 
     @NonNull
@@ -42,14 +43,41 @@ public class SavesAdapter extends RecyclerView.Adapter<SavesAdapter.MyViewHolder
         holder.tvLifeSpan.setText(dogSQLiteModels.get(position).getLifeSpan());
         holder.tvOrigin.setText(dogSQLiteModels.get(position).getOrigin());
         Glide.with(context).load(dogSQLiteModels.get(position).getImageURL()).into(holder.ivImage);
-
-        holder.itemView.setOnClickListener(view -> {
-            savesPresenterI.deleteData(dogSQLiteModels.get(position), position);
-        });
     }
 
     @Override
     public int getItemCount() {return dogSQLiteModels.size();}
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                if(charSequence == null || charSequence.length() == 0) {
+                    dogSQLiteModels = dogSQLiteModelsAll;
+                } else {
+                    ArrayList<DogSQLiteModel> filteredResultsData = new ArrayList<>();
+
+                    for(DogSQLiteModel dogModel : dogSQLiteModelsAll) {
+                        if(dogModel.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                            filteredResultsData.add(dogModel);
+                        }
+                    }
+                    dogSQLiteModels = filteredResultsData;
+                }
+                FilterResults searchResults = new FilterResults();
+                searchResults.values = dogSQLiteModels;
+                return searchResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                dogSQLiteModels = (ArrayList<DogSQLiteModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivImage;
