@@ -5,39 +5,44 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.group2.minidog.network.firebase.FirebaseAuthManager;
-import com.group2.minidog.network.firebase.FirebaseAuthManagerI;
 import com.group2.minidog.network.firebase.FirebaseAuthManagerListener;
 
 public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerListener {
 
     private final SignInActivityI signInActivityI;
-    private final FirebaseAuthManagerI firebaseAuthManagerI;
+    private final FirebaseAuthManager firebaseAuthManager;
 
     public SignInPresenter(SignInActivityI signInActivityI, Activity activity){
         this.signInActivityI = signInActivityI;
-        this.firebaseAuthManagerI = new FirebaseAuthManager(activity,this);
+        this.firebaseAuthManager = new FirebaseAuthManager(activity,this);
+        onPresenterCreated();
+    }
+
+    private void onPresenterCreated() {
+        signInActivityI.initView();
     }
 
     @Override
-    public void signInGoogle() {
-        firebaseAuthManagerI.signInGoogle();
+    public void showSignInUI() {
+        firebaseAuthManager.showSignInUI();
     }
 
     @Override
-    public void showGoogleAccounts(int requestCode, Intent data){
-        firebaseAuthManagerI.showGoogleAccounts(requestCode, data);
+    public void signInWithGoogle(int requestCode, Intent data){
+        firebaseAuthManager.signInWithGoogle(requestCode, data);
     }
 
     @Override
-    public void signInEmail(String email, String password) {
-        if (TextUtils.isEmpty(email)){
+    public void signInEmailAndPassword(String email, String password) {
+        String mEmail = email.trim(), mPassword = password.trim();
+        if (TextUtils.isEmpty(mEmail)){
             signInActivityI.etEmailSetError("Email cannot be empty");
             signInActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password)){
+        }else if (TextUtils.isEmpty(mPassword)){
             signInActivityI.etPasswordSetError("Password cannot be empty");
             signInActivityI.etPasswordRequestFocus();
         }else{
-            firebaseAuthManagerI.signInEmail(email, password);
+            firebaseAuthManager.signInEmailAndPassword(mEmail, mPassword);
         }
     }
 

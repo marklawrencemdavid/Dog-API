@@ -2,30 +2,30 @@ package com.group2.minidog.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DogModel {
+public class DogAPIModel {
 
     @SerializedName("id")
-    private int id;
+    private final int id;
     @SerializedName("name")
-    private String name;
+    private final String name;
     @SerializedName("bred_for")
-    private String bredFor;
+    private final String bredFor;
     @SerializedName("breed_group")
-    private String breedGroup;
+    private final String breedGroup;
     @SerializedName("life_span")
-    private String lifeSpan;
+    private final String lifeSpan;
     @SerializedName("temperament")
-    private String temperament;
+    private final String temperament;
     @SerializedName("origin")
-    private String origin;
+    private final String origin;
     @SerializedName("reference_image_id")
-    private String referenceImageId;
+    private final String referenceImageId;
 
     //No args constructor for use in serialization
-    public DogModel() { }
+    //public DogAPIModel() { }
 
-    public DogModel(int id, String name, String bredFor, String breedGroup, String lifeSpan, String temperament, String origin, String referenceImageId) {
-        super();
+    public DogAPIModel(int id, String name, String bredFor, String breedGroup, String lifeSpan, String temperament, String origin, String referenceImageId) {
+        //super();
         this.id = id;
         this.name = name;
         this.bredFor = bredFor;

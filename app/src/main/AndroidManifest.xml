@@ -36,7 +36,8 @@
             android:theme="@style/Theme.SignInSignup" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
 
         <meta-data
             android:name="preloaded_fonts"

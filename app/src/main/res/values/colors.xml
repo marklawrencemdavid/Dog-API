@@ -8,6 +8,8 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#2196F3</color>
+    <color name="red">#E91E63</color>
 
     <color name="orange">#D86D29</color>
     <color name="orange_lighter">#D66C27</color>
@@ -16,7 +18,7 @@
     <color name="darker">#2C2F36</color>
     <color name="darkest">#1C1F24</color>
 
-    <color name="primary_text">#1C1F24</color>
-    <color name="secondary_text">#1C1F24</color>
-    <color name="divider">#ECECEC</color>
+    <color name="primary_text">#FFFFFFFF</color>
+    <color name="secondary_text">#AFAFAF</color>
+    <color name="divider">#A1A1A1</color>
 </resources>

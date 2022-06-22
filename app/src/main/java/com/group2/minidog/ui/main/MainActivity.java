@@ -1,12 +1,6 @@
 package com.group2.minidog.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-
-import com.google.android.gms.auth.api.identity.Identity;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -14,28 +8,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group2.minidog.R;
 import com.group2.minidog.databinding.ActivityMainBinding;
-import com.group2.minidog.ui.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity implements MainActivityI {
 
     private ActivityMainBinding binding;
     private MainPresenterI mainPresenterI;
-    private Button btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        initView();
-
-        mainPresenterI = new MainPresenter(this);
+        mainPresenterI = new MainPresenter(this, this);
     }
 
     @Override

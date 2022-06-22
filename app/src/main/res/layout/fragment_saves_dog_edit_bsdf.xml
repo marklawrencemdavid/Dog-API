@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetSaves"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darker"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_close_bottomSheetSaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darker"
+            app:srcCompat="@drawable/ic_baseline_close_24" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit Dog"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/ib_update_bottomSheetSaves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darker"
+            app:srcCompat="@drawable/ic_baseline_check_24" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="ImageURL:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Name:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Breed Group:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Origin:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Life Span:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Bred For:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10.5dp"
+                android:paddingBottom="10dp"
+                android:text="Temperament:"
+                android:textColor="@color/secondary_text"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_imageURL_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Image URL"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_name_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_breedGroup_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Breed Group"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_origin_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Origin"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_lifeSpan_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Life Span"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_bredFor_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Bred For"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+            <EditText
+                android:id="@+id/et_temperament_bottomSheetSaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_text"
+                android:ems="10"
+                android:hint="Temperament"
+                android:inputType="textPersonName"
+                android:textColor="@color/primary_text"
+                android:textColorHint="@color/divider" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

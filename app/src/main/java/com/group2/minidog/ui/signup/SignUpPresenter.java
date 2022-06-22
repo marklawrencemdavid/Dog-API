@@ -14,24 +14,30 @@ public class SignUpPresenter implements SignUpPresenterI, FirebaseAuthManagerLis
     public SignUpPresenter(SignUpActivityI signUpActivityI, Activity activity){
         this.signUpActivityI = signUpActivityI;
         this.firebaseAuthManager = new FirebaseAuthManager(activity, this);
+        onPresenterCreated();
+    }
+
+    private void onPresenterCreated() {
+        signUpActivityI.initView();
     }
 
     @Override
     public void createUser(String email, String password, String rePassword) {
-        if (TextUtils.isEmpty(email)){
+        String mEmail = email.trim(), mPassword = password.trim(), mRePassword = rePassword.trim();
+        if (TextUtils.isEmpty(mEmail)){
             signUpActivityI.etEmailSetError("Email cannot be empty");
             signUpActivityI.etEmailRequestFocus();
-        }else if (TextUtils.isEmpty(password)){
+        }else if (TextUtils.isEmpty(mPassword)){
             signUpActivityI.etPasswordSetError("Password cannot be empty");
             signUpActivityI.etPasswordRequestFocus();
-        }else if (TextUtils.isEmpty(rePassword)){
+        }else if (TextUtils.isEmpty(mRePassword)){
             signUpActivityI.etRePasswordSetError("Password cannot be empty");
             signUpActivityI.etRePasswordRequestFocus();
-        }else if(!password.equals(rePassword)){
+        }else if(!mPassword.equals(mRePassword)){
             signUpActivityI.etPasswordSetError("");
             signUpActivityI.etRePasswordSetError("Passwords does not match");
         }else{
-            firebaseAuthManager.signUpWithEmailAndPassword(email, password);
+            firebaseAuthManager.signUpWithEmailAndPassword(mEmail, mPassword);
         }
     }
 

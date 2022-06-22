@@ -9,13 +9,15 @@ public class DogContract {
     public static class DogEntry implements BaseColumns {
         public static final String TABLE_NAME = "dogs";
         public static final String COLUMN_ID = "id";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_BRED_FOR = "bredFor";
-        public static final String COLUMN_BREED_GROUP = "breedGroup";
-        public static final String COLUMN_LIFE_SPAN = "lifeSpan";
-        public static final String COLUMN_TEMPERAMENT = "temperament";
-        public static final String COLUMN_ORIGIN = "origin";
-        public static final String COLUMN_IMAGE_ID = "imageId";
+        public static final String COLUMN_USER_EMAIL = "userEmail";
+        public static final String COLUMN_DOG_ID = "dogID";
+        public static final String COLUMN_DOG_NAME = "dogName";
+        public static final String COLUMN_DOG_BRED_FOR = "dogBredFor";
+        public static final String COLUMN_DOG_BREED_GROUP = "dogBreedGroup";
+        public static final String COLUMN_DOG_LIFE_SPAN = "dogLifeSpan";
+        public static final String COLUMN_DOG_TEMPERAMENT = "dogTemperament";
+        public static final String COLUMN_DOG_ORIGIN = "dogOrigin";
+        public static final String COLUMN_DOG_REFERENCE_IMAGE_ID = "dogReferenceImageId";
         public static final String COLUMN_TIME_CREATED = "timeCreated";
     }
 }

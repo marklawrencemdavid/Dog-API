@@ -28,19 +28,17 @@ public class SignInActivity extends AppCompatActivity implements SignInActivityI
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        initView();
-
         signInPresenterI = new SignInPresenter(this, this);
 
-        ibSignIn.setOnClickListener(view -> signInPresenterI.signInEmail(etEmail.getText().toString().trim(), etPassword.getText().toString().trim()));
-        btnGoogleSignIn.setOnClickListener(view -> signInPresenterI.signInGoogle());
+        ibSignIn.setOnClickListener(view -> signInPresenterI.signInEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()));
+        btnGoogleSignIn.setOnClickListener(view -> signInPresenterI.showSignInUI());
         btnSignUp.setOnClickListener(view -> gotoSignUpActivity());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        signInPresenterI.showGoogleAccounts(requestCode, data);
+        signInPresenterI.signInWithGoogle(requestCode, data);
     }
 
     @Override
