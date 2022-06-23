@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.group2.minidog.ui.main.home.HomeFragment"
+        android:name="com.rensuuuuuuuu.dogapi.ui.main.home.HomeFragment"
         android:label="@string/fragment_home_title"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/fragment_save"
-        android:name="com.group2.minidog.ui.main.saves.SavesFragment"
+        android:name="com.rensuuuuuuuu.dogapi.ui.main.saves.SavesFragment"
         android:label="@string/fragment_saves_title"
         tools:layout="@layout/fragment_saves" />
 
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="com.group2.minidog.ui.main.profile.ProfileFragment"
+        android:name="com.rensuuuuuuuu.dogapi.ui.main.profile.ProfileFragment"
         android:label="@string/fragment_profile_title"
         tools:layout="@layout/fragment_profile" />
 </navigation>

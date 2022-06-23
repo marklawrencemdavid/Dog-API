@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/app_logo"
+        app:srcCompat="@drawable/sample_dog"
         tools:ignore="ContentDescription" />
 
     <TextView

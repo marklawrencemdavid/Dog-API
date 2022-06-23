@@ -12,7 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/darker</item>
         <!-- Customize your theme here. -->
-        <item name="android:navigationBarColor">@color/darker</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="actionBarStyle">@style/Theme.ActionBar</item>
+    </style>
+
+    <style name="Theme.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <!-- remove shadow below action bar -->
+        <item name="elevation">0dp</item>
     </style>
 
     <!-- Splashscreen -->

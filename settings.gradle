@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "Mini Dog"
+rootProject.name = "Dog API"
 include ':app'

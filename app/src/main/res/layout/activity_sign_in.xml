@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo_2" />
+        app:srcCompat="@drawable/app_logo" />
 
     <TextView
         android:id="@+id/textView2"
@@ -36,7 +36,7 @@
         android:layout_width="288dp"
         android:layout_height="62dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/inputtext_background"
+        android:background="@drawable/inputtext_background_light"
         android:ems="10"
         android:gravity="center"
         android:hint="Email"
@@ -54,7 +54,7 @@
         android:layout_width="288dp"
         android:layout_height="62dp"
         android:layout_marginTop="-30dp"
-        android:background="@drawable/inputtext_background"
+        android:background="@drawable/inputtext_background_light"
         android:ems="10"
         android:gravity="center"
         android:hint="Password"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password_signin"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/button_paw_signin" />
+        app:srcCompat="@drawable/button_paw" />
 
     <TextView
         android:id="@+id/textView"

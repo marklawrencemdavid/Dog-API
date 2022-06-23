@@ -12,7 +12,7 @@
         android:layout_height="120dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_dog" />
+        android:src="@drawable/sample_dog" />
 
     <LinearLayout
         android:layout_width="match_parent"
