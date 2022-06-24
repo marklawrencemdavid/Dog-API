@@ -8,7 +8,6 @@ import com.group2.minidog.network.sqlite.DogDatabase;
 import com.group2.minidog.ui.main.home.HomePresenter;
 import com.group2.minidog.ui.main.profile.ProfilePresenter;
 import com.group2.minidog.ui.main.saves.SavesPresenter;
-import com.group2.minidog.ui.splashscreen.SplashScreenPresenter;
 
 import javax.inject.Singleton;
 
@@ -23,7 +22,6 @@ public interface AppComponent {
     void inject(FirebaseAuthManager firebaseAuthManager);
 
     // Presenter
-    void inject(SplashScreenPresenter splashScreenPresenter);
     void inject(HomePresenter homePresenter);
     void inject(SavesPresenter savesPresenter);
     void inject(ProfilePresenter profilePresenter);
