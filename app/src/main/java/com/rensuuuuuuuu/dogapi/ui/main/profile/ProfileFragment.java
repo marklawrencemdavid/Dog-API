@@ -10,12 +10,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rensuuuuuuuu.dogapi.R;
 import com.rensuuuuuuuu.dogapi.databinding.FragmentProfileBinding;
+import com.rensuuuuuuuu.dogapi.model.DogSQLiteModel;
 import com.rensuuuuuuuu.dogapi.ui.signin.SignInActivity;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,6 +28,9 @@ public class ProfileFragment extends Fragment implements ProfileFragmentI {
 
     private FragmentProfileBinding binding;
     private ProfilePresenterI profilePresenterI;
+    private ArrayList<DogSQLiteModel> dogSQLiteModels;
+    private ProfileAdapter adapter;
+    private RecyclerView rvDog;
     private CircleImageView ivProfilePicture;
     private TextView tvDisplayName, tvEmail;
     private Button btnLogout;
@@ -44,6 +52,16 @@ public class ProfileFragment extends Fragment implements ProfileFragmentI {
         tvDisplayName = binding.tvDisplayNameProfile;
         tvEmail = binding.tvEmailProfile;
         btnLogout = binding.btnLogoutProfile;
+        rvDog = binding.rvDogProfile;
+        rvDog.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvDog.setHasFixedSize(true);
+    }
+
+    @Override
+    public void setDataToRecyclerview(ArrayList<DogSQLiteModel> dogSQLiteModels) {
+        this.dogSQLiteModels = dogSQLiteModels;
+        adapter = new ProfileAdapter(getContext(), this.dogSQLiteModels);
+        rvDog.setAdapter(adapter);
     }
 
     @Override

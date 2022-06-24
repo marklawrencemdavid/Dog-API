@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.rensuuuuuuuu.dogapi.App;
 import com.rensuuuuuuuu.dogapi.network.firebase.FirebaseAuthManager;
 import com.rensuuuuuuuu.dogapi.network.firebase.FirebaseAuthManagerListener;
+import com.rensuuuuuuuu.dogapi.network.sqlite.DogDatabase;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,8 @@ public class ProfilePresenter implements ProfilePresenterI, FirebaseAuthManagerL
     private final FirebaseAuthManager firebaseAuthManager;
     @Inject
     public FirebaseUser firebaseUser;
+    @Inject
+    public DogDatabase dogDatabase;
 
     public ProfilePresenter(Activity activity, ProfileFragmentI profileFragmentI) {
         App.getAppComponent().inject(this);
@@ -26,6 +29,7 @@ public class ProfilePresenter implements ProfilePresenterI, FirebaseAuthManagerL
     private void onPresenterCreated() {
         profileFragmentI.initView();
         profileFragmentI.setValues(String.valueOf(firebaseUser.getPhotoUrl()), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+        profileFragmentI.setDataToRecyclerview(dogDatabase.getAllDog());
     }
 
     @Override
