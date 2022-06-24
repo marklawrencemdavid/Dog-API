@@ -1,11 +1,9 @@
 package com.rensuuuuuuuu.dogapi.ui.main.home;
 
-import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 
+import com.rensuuuuuuuu.dogapi.App;
 import com.rensuuuuuuuu.dogapi.model.DogAPIModel;
-import com.rensuuuuuuuu.dogapi.network.App;
 import com.rensuuuuuuuu.dogapi.network.api.DogAPIManager;
 import com.rensuuuuuuuu.dogapi.network.api.DogAPIManagerListeners;
 import com.rensuuuuuuuu.dogapi.network.sqlite.DogDatabase;
@@ -36,15 +34,18 @@ public class HomePresenter implements HomePresenterI, DogAPIManagerListeners {
     }
 
     @Override
-    public void search(String name) {
-        String mName = name.trim();
-        if(!TextUtils.isEmpty(mName)) {
-            if(!mName.equals(previousNameSearched)){
-                previousNameSearched = mName;
-                homeFragmentI.showProgressBar();
-                dogAPIManager.searchDog(mName);
-            }
-        }
+    public void onSearch(String name) {
+        homeFragmentI.showProgressBar();
+        homeFragmentI.search(name);
+        homeFragmentI.hideProgressBar();
+        //String mName = name.trim();
+        //if(!TextUtils.isEmpty(mName)) {
+        //    if(!mName.equals(previousNameSearched)){
+        //       previousNameSearched = mName;
+        //       homeFragmentI.showProgressBar();
+        //        dogAPIManager.searchDog(mName);
+        //    }
+        //}
     }
 
     @Override

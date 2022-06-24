@@ -1,11 +1,13 @@
-package com.rensuuuuuuuu.dogapi.network;
+package com.rensuuuuuuuu.dogapi;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
-import com.rensuuuuuuuu.dogapi.network.daggermodules.AppModule;
-import com.rensuuuuuuuu.dogapi.network.daggermodules.NetworkModule;
+import com.rensuuuuuuuu.dogapi.dependencyinjection.AppComponent;
+import com.rensuuuuuuuu.dogapi.dependencyinjection.AppModule;
+import com.rensuuuuuuuu.dogapi.dependencyinjection.DaggerAppComponent;
+import com.rensuuuuuuuu.dogapi.dependencyinjection.NetworkModule;
 
 public class App extends Application {
 

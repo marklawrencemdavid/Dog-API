@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,22 +18,23 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rensuuuuuuuu.dogapi.R;
 import com.rensuuuuuuuu.dogapi.model.DogAPIModel;
+import com.rensuuuuuuuu.dogapi.model.DogSQLiteModel;
 
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> implements Filterable {
     private final Context context;
     private final HomePresenterI homePresenterI;
     private final FragmentManager fragmentManager;
-    private final ArrayList<DogAPIModel> dogAPIModels;
-    private final ArrayList<DogAPIModel> dogAPIModelsOriginalUtil;
+    private ArrayList<DogAPIModel> dogAPIModels;
+    private final ArrayList<DogAPIModel> dogAPIModelsAll;
 
     public HomeAdapter(Context context, HomePresenterI homePresenterI, FragmentManager fragmentManager, ArrayList<DogAPIModel> dogAPIModels) {
         this.context = context;
         this.homePresenterI = homePresenterI;
         this.fragmentManager = fragmentManager;
         this.dogAPIModels = dogAPIModels;
-        this.dogAPIModelsOriginalUtil = dogAPIModels;
+        this.dogAPIModelsAll = dogAPIModels;
     }
 
     @NonNull
@@ -60,6 +63,37 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>{
     @Override
     public int getItemCount() {
         return dogAPIModels.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                if(charSequence == null || charSequence.length() == 0) {
+                    dogAPIModels = dogAPIModelsAll;
+                } else {
+                    ArrayList<DogAPIModel> filteredResultsData = new ArrayList<>();
+
+                    for(DogAPIModel dogModel : dogAPIModelsAll) {
+                        if(dogModel.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                            filteredResultsData.add(dogModel);
+                        }
+                    }
+                    dogAPIModels = filteredResultsData;
+                }
+                FilterResults searchResults = new FilterResults();
+                searchResults.values = dogAPIModels;
+                return searchResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                dogAPIModels = (ArrayList<DogAPIModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

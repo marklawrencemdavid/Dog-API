@@ -10,6 +10,8 @@ public interface SignInActivityI {
     void etPasswordSetError(String error);
 
     void showToast(String message);
+    void showOverlay();
+    void hideOverlay();
 
     void goToMainActivity();
     void gotoSignUpActivity();

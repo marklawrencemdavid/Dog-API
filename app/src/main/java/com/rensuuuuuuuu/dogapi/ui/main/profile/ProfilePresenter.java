@@ -3,7 +3,7 @@ package com.rensuuuuuuuu.dogapi.ui.main.profile;
 import android.app.Activity;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.rensuuuuuuuu.dogapi.network.App;
+import com.rensuuuuuuuu.dogapi.App;
 import com.rensuuuuuuuu.dogapi.network.firebase.FirebaseAuthManager;
 import com.rensuuuuuuuu.dogapi.network.firebase.FirebaseAuthManagerListener;
 

@@ -1,7 +1,7 @@
 package com.rensuuuuuuuu.dogapi.ui.main.saves;
 
 import com.rensuuuuuuuu.dogapi.model.DogSQLiteModel;
-import com.rensuuuuuuuu.dogapi.network.App;
+import com.rensuuuuuuuu.dogapi.App;
 import com.rensuuuuuuuu.dogapi.network.sqlite.DogDatabase;
 
 import javax.inject.Inject;

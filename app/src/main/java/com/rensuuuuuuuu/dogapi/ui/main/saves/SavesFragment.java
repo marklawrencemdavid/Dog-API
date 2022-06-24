@@ -39,8 +39,6 @@ public class SavesFragment extends Fragment implements SavesFragmentI {
     private ArrayList<DogSQLiteModel> dogSQLiteModels;
     private SavesAdapter adapter;
     private ItemTouchHelper itemTouchHelper;
-    private ImageButton ibSearch;
-    private EditText etSearch;
     private RecyclerView rvDog;
     private ProgressBar pbLoading;
 
@@ -49,10 +47,6 @@ public class SavesFragment extends Fragment implements SavesFragmentI {
         View root = binding.getRoot();
 
         savesPresenterI = new SavesPresenter(this);
-
-        ibSearch.setOnClickListener(v -> {
-            savesPresenterI.onSearch(etSearch.getText().toString());
-        });
 
         return root;
     }
@@ -98,8 +92,6 @@ public class SavesFragment extends Fragment implements SavesFragmentI {
     @Override
     public void initView() {
         dogSQLiteModels = new ArrayList<>();
-        ibSearch = binding.ibSearchSaves;
-        etSearch = binding.etSearchSaves;
         pbLoading = binding.pbLoadingSaves;
         rvDog = binding.rvDogSaves;
         rvDog.setLayoutManager(new LinearLayoutManager(getContext()));

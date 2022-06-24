@@ -8,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,16 +32,12 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     private ArrayList<DogAPIModel> dogAPIModels;
     private RecyclerView rvDog;
     private ProgressBar pbLoading;
-    private EditText etSearch;
-    private ImageButton ibSearch;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         homePresenterI = new HomePresenter(this);
-
-        ibSearch.setOnClickListener(v -> homePresenterI.search(etSearch.getText().toString()));
 
         return view;
     }
@@ -72,6 +66,7 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                homePresenterI.onSearch(newText);
                 return false;
             }
         });
@@ -88,8 +83,6 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     @Override
     public void initView() {
         dogAPIModels = new ArrayList<>();
-        ibSearch = binding.ibSearchHome;
-        etSearch = binding.etSearchHome;
         pbLoading = binding.pbLoadingHome;
         rvDog =  binding.rvDogHome;
         rvDog.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,6 +100,9 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     public void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void search(String name) {adapter.getFilter().filter(name);}
 
     @Override
     public void showProgressBar() { pbLoading.setVisibility(View.VISIBLE); }

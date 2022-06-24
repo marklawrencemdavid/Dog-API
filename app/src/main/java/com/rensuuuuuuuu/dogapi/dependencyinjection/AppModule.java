@@ -1,4 +1,4 @@
-package com.rensuuuuuuuu.dogapi.network.daggermodules;
+package com.rensuuuuuuuu.dogapi.dependencyinjection;
 
 import android.app.Application;
 import android.content.Context;

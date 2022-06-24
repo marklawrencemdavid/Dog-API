@@ -10,6 +10,8 @@ public interface HomeFragmentI {
     void setDataToRecyclerview(ArrayList<DogAPIModel> dogAPIModels);
     void showToast(String message);
 
+    void search(String name);
+
     void showProgressBar();
     void hideProgressBar();
 }

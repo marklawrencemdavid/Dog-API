@@ -3,7 +3,7 @@ package com.rensuuuuuuuu.dogapi.network.api;
 import androidx.annotation.NonNull;
 
 import com.rensuuuuuuuu.dogapi.model.DogAPIModel;
-import com.rensuuuuuuuu.dogapi.network.App;
+import com.rensuuuuuuuu.dogapi.App;
 
 import java.util.ArrayList;
 

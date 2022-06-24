@@ -2,20 +2,17 @@ package com.rensuuuuuuuu.dogapi.ui.splashscreen;
 
 import android.app.Activity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.rensuuuuuuuu.dogapi.network.App;
-
-import javax.inject.Inject;
 
 public class SplashScreenPresenter implements SplashScreenPresenterI {
 
     private final SplashScreenActivityI splashScreenActivityI;
-    @Inject
     public FirebaseUser firebaseUser;
 
     public SplashScreenPresenter(SplashScreenActivityI splashScreenActivityI, Activity activity){
-        App.getAppComponent().inject(this);
         this.splashScreenActivityI = splashScreenActivityI;
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override

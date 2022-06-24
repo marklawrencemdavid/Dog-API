@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.google.firebase.auth.FirebaseUser;
 import com.rensuuuuuuuu.dogapi.model.DogAPIModel;
 import com.rensuuuuuuuu.dogapi.model.DogSQLiteModel;
-import com.rensuuuuuuuu.dogapi.network.App;
+import com.rensuuuuuuuu.dogapi.App;
 
 import java.util.ArrayList;
 

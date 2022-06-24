@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,14 +13,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rensuuuuuuuu.dogapi.databinding.ActivitySignInBinding;
 import com.rensuuuuuuuu.dogapi.ui.main.MainActivity;
 import com.rensuuuuuuuu.dogapi.ui.signup.SignUpActivity;
+import com.rensuuuuuuuu.dogapi.util.LoadingOverlayDialog;
 
 public class SignInActivity extends AppCompatActivity implements SignInActivityI {
 
     private ActivitySignInBinding binding;
     private SignInPresenterI signInPresenterI;
     private EditText etEmail, etPassword;
-    private Button btnGoogleSignIn, btnSignUp;
-    private ImageButton ibSignIn;
+    private Button btnGoogleSignIn, btnSignIn;
+    private TextView tvSignUp;
+    private LoadingOverlayDialog loadingOverlayDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,15 @@ public class SignInActivity extends AppCompatActivity implements SignInActivityI
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initView();
+
         signInPresenterI = new SignInPresenter(this, this);
 
-        ibSignIn.setOnClickListener(view -> signInPresenterI.signInEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()));
-        btnGoogleSignIn.setOnClickListener(view -> signInPresenterI.showSignInUI());
-        btnSignUp.setOnClickListener(view -> gotoSignUpActivity());
+        btnSignIn.setOnClickListener(view ->
+            signInPresenterI.signInEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
+        );
+        btnGoogleSignIn.setOnClickListener(view -> signInPresenterI.showSignInUI() );
+        tvSignUp.setOnClickListener(view -> gotoSignUpActivity());
     }
 
     @Override
@@ -45,9 +51,10 @@ public class SignInActivity extends AppCompatActivity implements SignInActivityI
     public void initView() {
         etEmail = binding.etEmailSignin;
         etPassword = binding.etPasswordSignin;
-        ibSignIn = binding.ibSignIn;
+        btnSignIn = binding.btnSignIn;
         btnGoogleSignIn = binding.btnSignupGoogle;
-        btnSignUp = binding.btnSignUp;
+        tvSignUp = binding.tvSignUp;
+        loadingOverlayDialog = new LoadingOverlayDialog(this);
     }
 
     @Override
@@ -73,6 +80,16 @@ public class SignInActivity extends AppCompatActivity implements SignInActivityI
     @Override
     public void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showOverlay() {
+        loadingOverlayDialog.show();
+    }
+
+    @Override
+    public void hideOverlay() {
+        loadingOverlayDialog.hide();
     }
 
     @Override

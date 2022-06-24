@@ -15,15 +15,11 @@ public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerLis
     public SignInPresenter(SignInActivityI signInActivityI, Activity activity){
         this.signInActivityI = signInActivityI;
         this.firebaseAuthManager = new FirebaseAuthManager(activity,this);
-        onPresenterCreated();
-    }
-
-    private void onPresenterCreated() {
-        signInActivityI.initView();
     }
 
     @Override
     public void showSignInUI() {
+        signInActivityI.showOverlay();
         firebaseAuthManager.showSignInUI();
     }
 
@@ -42,17 +38,22 @@ public class SignInPresenter implements SignInPresenterI, FirebaseAuthManagerLis
             signInActivityI.etPasswordSetError("Password cannot be empty");
             signInActivityI.etPasswordRequestFocus();
         }else{
+            signInActivityI.showOverlay();
             firebaseAuthManager.signInEmailAndPassword(mEmail, mPassword);
         }
     }
 
     @Override
     public void onSuccess() {
+        signInActivityI.hideOverlay();
         signInActivityI.goToMainActivity();
     }
 
     @Override
     public void onFail(String message) {
-        signInActivityI.showToast(message);
+        signInActivityI.hideOverlay();
+        if(!message.equals("")) {
+            signInActivityI.showToast(message);
+        }
     }
 }

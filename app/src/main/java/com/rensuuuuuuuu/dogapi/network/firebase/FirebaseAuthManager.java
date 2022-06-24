@@ -16,8 +16,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.rensuuuuuuuu.dogapi.App;
 import com.rensuuuuuuuu.dogapi.R;
-import com.rensuuuuuuuu.dogapi.network.App;
 
 import java.util.Objects;
 
@@ -28,7 +28,7 @@ public class FirebaseAuthManager {
     private final Activity activity;
     private final FirebaseAuthManagerListener listener;
     private final SignInClient signInClient;
-    private static final int REQ_ONE_TAP = 2;
+    private final int REQ_ONE_TAP = 2;
     private boolean showOneTapUI = true;
     @Inject
     public FirebaseAuth firebaseAuth;
@@ -41,7 +41,7 @@ public class FirebaseAuthManager {
     }
 
     public void showSignInUI() {
-        if(showOneTapUI) {
+        if (showOneTapUI) {
             BeginSignInRequest beginSignInRequest = BeginSignInRequest.builder()
                     .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
                             .setSupported(true)
@@ -65,10 +65,8 @@ public class FirebaseAuthManager {
                             listener.onFail("Couldn't start One Tap UI: " + e.getLocalizedMessage());
                         }
                     })
-                    .addOnFailureListener(activity, e -> {
-                        listener.onFail(e.getLocalizedMessage());
-                    });
-        }else{
+                    .addOnFailureListener(activity, e -> listener.onFail(e.getLocalizedMessage()));
+        } else {
             listener.onFail("Previous action was canceled.\n Please try again later.");
         }
     }
@@ -89,6 +87,7 @@ public class FirebaseAuthManager {
                 switch (e.getStatusCode()) {
                     case CommonStatusCodes.CANCELED:
                         //One-tap dialog was closed.
+                        listener.onFail("");
                         // Don't re-prompt the user.
                         showOneTapUI = false;
                         break;
