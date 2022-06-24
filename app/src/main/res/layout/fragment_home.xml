@@ -7,35 +7,6 @@
     android:background="@color/darker"
     tools:context=".ui.main.home.HomeFragment">
 
-    <ImageButton
-        android:id="@+id/ib_search_home"
-        android:layout_width="64dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="#00FFFFFF"
-        android:src="@drawable/button_paw_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_search_home"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="-10dp"
-        android:layout_marginEnd="-10dp"
-        android:background="@drawable/inputtext_background2"
-        android:ems="10"
-        android:hint="Dog name"
-        android:inputType="textPersonName"
-        android:paddingHorizontal="35dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textColorHint="@color/secondary_text"
-        android:textCursorDrawable="@null"
-        app:layout_constraintEnd_toStartOf="@+id/ib_search_home"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_dog_home"
         android:layout_width="0dp"
@@ -45,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_search_home" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/pb_loading_home"
