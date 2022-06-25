@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
                         .placeholder(R.drawable.sample_dog)
                         .error(R.drawable.sample_dog))
                 .load(dogSQLiteModels.get(position).getImageURL()).into(holder.ivImage);
+        holder.tvName.setText(dogSQLiteModels.get(position).getName());
     }
 
     @Override
@@ -48,11 +50,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivImage;
+        TextView tvName;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivImage = itemView.findViewById(R.id.iv_image_profile);
+            tvName = itemView.findViewById(R.id.tv_name_profile);
         }
     }
 }
