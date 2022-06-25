@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.rensuuuuuuuu.dogapi.R;
 import com.rensuuuuuuuu.dogapi.model.DogAPIModel;
-import com.rensuuuuuuuu.dogapi.model.DogSQLiteModel;
 
 import java.util.ArrayList;
 
@@ -55,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             .load(dogAPIModels.get(position).getImageURL()).into(holder.ivImage);
 
         holder.itemView.setOnClickListener(view -> {
-            HomeDogItemBSDF homeDogItemBSDF = new HomeDogItemBSDF(context, homePresenterI, dogAPIModels.get(position));
+            HomeDogItemBSDF homeDogItemBSDF = new HomeDogItemBSDF(homePresenterI, dogAPIModels.get(position));
             homeDogItemBSDF.show(fragmentManager, homeDogItemBSDF.getTag());
         });
     }
@@ -108,7 +107,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             tvName = itemView.findViewById(R.id.tv_name_home);
             tvLifeSpan = itemView.findViewById(R.id.tv_lifespan_home);
             tvOrigin = itemView.findViewById(R.id.tv_origin_home);
-            bottomSheetContainer = itemView.findViewById(R.id.bottomSheetHome);
+            bottomSheetContainer = itemView.findViewById(R.id.fragmentHomeDogItemBSDF);
         }
     }
 }
