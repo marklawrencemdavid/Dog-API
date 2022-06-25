@@ -1,7 +1,6 @@
 package com.rensuuuuuuuu.dogapi.ui.main.saves;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -26,15 +25,13 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
 
     private final SavesFragmentI savesFragmentI;
     private final SavesPresenterI savesPresenterI;
-    private final Context context;
     private final DogSQLiteModel dogSQLiteModel;
     private final int position;
     private BottomSheetDialog bottomSheetDialog;
     private ImageButton ibClose, ibUpdate;
     private EditText etImageURL, etName, etBreedGroup, etOrigin, etLifeSpan, etBredFor, etTemperament;
 
-    public SavesDogEditBSDF(Context context, SavesFragmentI savesFragmentI, SavesPresenterI savesPresenterI, DogSQLiteModel dogSQLiteModel, int position) {
-        this.context = context;
+    public SavesDogEditBSDF(SavesFragmentI savesFragmentI, SavesPresenterI savesPresenterI, DogSQLiteModel dogSQLiteModel, int position) {
         this.savesFragmentI = savesFragmentI;
         this.savesPresenterI = savesPresenterI;
         this.dogSQLiteModel = dogSQLiteModel;

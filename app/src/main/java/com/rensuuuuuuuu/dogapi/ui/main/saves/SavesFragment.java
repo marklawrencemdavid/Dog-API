@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -134,7 +132,7 @@ public class SavesFragment extends Fragment implements SavesFragmentI {
 
     @Override
     public void showSavesEditBSDF(DogSQLiteModel dogSQLiteModel, int position) {
-        SavesDogEditBSDF savesDogEditBSDF = new SavesDogEditBSDF(getContext(), this, savesPresenterI, dogSQLiteModel, position);
+        SavesDogEditBSDF savesDogEditBSDF = new SavesDogEditBSDF(this, savesPresenterI, dogSQLiteModel, position);
         savesDogEditBSDF.show(getParentFragmentManager(), savesDogEditBSDF.getTag());
     }
 

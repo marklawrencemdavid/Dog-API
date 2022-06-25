@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements HomeFragmentI {
     @Override
     public void setDataToRecyclerview(ArrayList<DogAPIModel> dogAPIModels) {
         this.dogAPIModels = dogAPIModels;
-        adapter = new HomeAdapter(getContext(), homePresenterI, getParentFragmentManager(), this.dogAPIModels);
+        adapter = new HomeAdapter(getContext(), homePresenterI, getChildFragmentManager(), this.dogAPIModels);
         rvDog.setAdapter(adapter);
     }
 
