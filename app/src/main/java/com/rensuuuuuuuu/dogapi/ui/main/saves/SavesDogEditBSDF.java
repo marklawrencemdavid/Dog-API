@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -31,6 +34,7 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
     private BottomSheetDialog bottomSheetDialog;
     private LinearLayout linearLayout;
     private ImageButton ibClose;
+    private ImageView ivImage;
     private Button btnUpdate;
     private EditText etImageURL, etName, etBreedGroup, etOrigin, etLifeSpan, etBredFor, etTemperament;
 
@@ -56,6 +60,7 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
 
         ibClose = view.findViewById(R.id.ib_close_bottomSheetSaves);
         btnUpdate = view.findViewById(R.id.btn_update_bottomSheetSaves);
+        ivImage = view.findViewById(R.id.iv_image_bottomSheetSaves);
         etImageURL = view.findViewById(R.id.et_imageURL_bottomSheetSaves);
         etName = view.findViewById(R.id.et_name_bottomSheetSaves);
         etBreedGroup = view.findViewById(R.id.et_breedGroup_bottomSheetSaves);
@@ -81,6 +86,10 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
             linearLayout.setMinimumWidth(Resources.getSystem().getDisplayMetrics().widthPixels);
         }
 
+        Glide.with(requireContext()).applyDefaultRequestOptions(new RequestOptions()
+                        .placeholder(R.drawable.sample_dog)
+                        .error(R.drawable.sample_dog))
+                .load(dogSQLiteModel.getImageURL()).into(ivImage);
         etImageURL.setText(dogSQLiteModel.getImageURL());
         etName.setText(dogSQLiteModel.getName());
         etBreedGroup.setText(dogSQLiteModel.getBreedGroup());
@@ -88,6 +97,16 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
         etLifeSpan.setText(dogSQLiteModel.getLifeSpan());
         etBredFor.setText(dogSQLiteModel.getBredFor());
         etTemperament.setText(dogSQLiteModel.getTemperament());
+
+        etImageURL.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                Glide.with(requireContext()).applyDefaultRequestOptions(new RequestOptions()
+                                .placeholder(R.drawable.sample_dog)
+                                .error(R.drawable.sample_dog))
+                        .load(etImageURL.getText().toString()).into(ivImage);
+            }
+        });
 
         btnUpdate.setOnClickListener(v -> {
             DogSQLiteModel model = new DogSQLiteModel.Builder()
