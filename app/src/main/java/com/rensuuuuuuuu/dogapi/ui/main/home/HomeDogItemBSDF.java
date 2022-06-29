@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,10 +28,11 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
     private final DogAPIModel dogAPIModel;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetBehavior<View> bottomSheetBehavior;
-    private ScrollView scrollView;
+    private LinearLayout linearLayout;
     private ImageView ivDogImage;
     private TextView tvDogName, tvDogBreedGroup, tvDogOrigin, tvDogLifeSpan, tvDogBredFor, tvDogTemperament;
-    private ImageButton ibClose, ibSave;
+    private ImageButton ibClose;
+    private Button btnSave;
     private final HomePresenterI homePresenterI;
     private final String undefined = "Undefined";
 
@@ -60,7 +62,7 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         tvDogBredFor = view.findViewById(R.id.bottomSheet_dogBredFor);
         tvDogTemperament = view.findViewById(R.id.bottomSheet_dogTemperament);
         ibClose = view.findViewById(R.id.ib_Close_bottomSheetHome);
-        ibSave = view.findViewById(R.id.ib_Save_bottomSheetHome);
+        btnSave = view.findViewById(R.id.btn_save_bottomSheetHome);
 
         return view;
     }
@@ -72,10 +74,10 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-        scrollView = bottomSheetDialog.findViewById(R.id.fragmentHomeDogItemBSDF);
-        if (scrollView != null) {
-            scrollView.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
-            scrollView.setMinimumWidth(Resources.getSystem().getDisplayMetrics().widthPixels);
+        linearLayout = bottomSheetDialog.findViewById(R.id.fragmentHomeDogItemBSDF);
+        if (linearLayout != null) {
+            linearLayout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+            linearLayout.setMinimumWidth(Resources.getSystem().getDisplayMetrics().widthPixels);
         }
 
         Glide.with(requireContext()).applyDefaultRequestOptions(new RequestOptions()
@@ -100,7 +102,7 @@ public class HomeDogItemBSDF extends BottomSheetDialogFragment {
         if(dogAPIModel.getTemperament() == null) tvDogTemperament.setText(undefined);
         else tvDogTemperament.setText(dogAPIModel.getTemperament());
 
-        ibSave.setOnClickListener(v -> {
+        btnSave.setOnClickListener(v -> {
             homePresenterI.addDog(dogAPIModel);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         });

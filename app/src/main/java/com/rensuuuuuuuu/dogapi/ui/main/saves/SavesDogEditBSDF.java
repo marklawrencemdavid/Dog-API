@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,7 +29,9 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
     private final DogSQLiteModel dogSQLiteModel;
     private final int position;
     private BottomSheetDialog bottomSheetDialog;
-    private ImageButton ibClose, ibUpdate;
+    private LinearLayout linearLayout;
+    private ImageButton ibClose;
+    private Button btnUpdate;
     private EditText etImageURL, etName, etBreedGroup, etOrigin, etLifeSpan, etBredFor, etTemperament;
 
     public SavesDogEditBSDF(SavesFragmentI savesFragmentI, SavesPresenterI savesPresenterI, DogSQLiteModel dogSQLiteModel, int position) {
@@ -52,7 +55,7 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_saves_dog_edit_bsdf, container, false);
 
         ibClose = view.findViewById(R.id.ib_close_bottomSheetSaves);
-        ibUpdate = view.findViewById(R.id.ib_update_bottomSheetSaves);
+        btnUpdate = view.findViewById(R.id.btn_update_bottomSheetSaves);
         etImageURL = view.findViewById(R.id.et_imageURL_bottomSheetSaves);
         etName = view.findViewById(R.id.et_name_bottomSheetSaves);
         etBreedGroup = view.findViewById(R.id.et_breedGroup_bottomSheetSaves);
@@ -72,9 +75,11 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
         BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-        LinearLayout layout = bottomSheetDialog.findViewById(R.id.bottomSheetSaves);
-        assert layout != null;
-        layout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+        linearLayout = bottomSheetDialog.findViewById(R.id.fragmentSavesDogItemBSDF);
+        if (linearLayout != null) {
+            linearLayout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+            linearLayout.setMinimumWidth(Resources.getSystem().getDisplayMetrics().widthPixels);
+        }
 
         etImageURL.setText(dogSQLiteModel.getImageURL());
         etName.setText(dogSQLiteModel.getName());
@@ -84,7 +89,7 @@ public class SavesDogEditBSDF extends BottomSheetDialogFragment {
         etBredFor.setText(dogSQLiteModel.getBredFor());
         etTemperament.setText(dogSQLiteModel.getTemperament());
 
-        ibUpdate.setOnClickListener(v -> {
+        btnUpdate.setOnClickListener(v -> {
             DogSQLiteModel model = new DogSQLiteModel.Builder()
                     .setDogAPIModel(new DogAPIModel(dogSQLiteModel.getId(),
                             etName.getText().toString(),
